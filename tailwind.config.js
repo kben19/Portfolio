@@ -11,6 +11,9 @@ module.exports = {
           DEFAULT: "#0ea5e9",
           dark: "#0284c7"
         }
+      },
+      fontFamily: {
+        sans: ["var(--font-jakarta)", "sans-serif"],
       }
     },
   },

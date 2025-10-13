@@ -1,0 +1,29 @@
+// components/Header.tsx
+import Link from "next/link";
+
+const links = [
+  { href: "#about", label: "About" },
+  { href: "#work", label: "Work" },
+  { href: "#contact", label: "Contact" },
+];
+
+export default function Header() {
+  return (
+    <header className="container-max py-4 pr-6">
+      <nav className="flex justify-end">
+        <ul className="flex gap-8 text-sm text-gray-700">
+          {links.map((l) => (
+            <li key={l.href}>
+              <Link
+                href={l.href}
+                className="underline-offset-4 hover:underline focus:underline focus:outline-none"
+              >
+                {l.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
+  );
+}
