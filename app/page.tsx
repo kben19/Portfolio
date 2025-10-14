@@ -1,6 +1,7 @@
 // app/page.tsx
 import Image from "next/image";
 import Header from "../components/Header";
+import SocialLinks from "../components/SocialLink"
 
 export default function HomePage() {
   return (
@@ -29,6 +30,9 @@ export default function HomePage() {
               Specializing in scalable microservices serving millions of users.
             </p>
           </div>
+          <div className="pt-4">
+            <SocialLinks />
+          </div>
         </div>
 
         {/* Right: photo */}
@@ -43,6 +47,15 @@ export default function HomePage() {
           />
         </div>
       </section>
+
+      {/* === Footer Section === */}
+      <footer className="border-t bg-gray-50 py-8">
+        <div className="container-max flex justify-center">
+          <div className="pt-4">
+            <SocialLinks />
+          </div>
+        </div>
+      </footer>
     </>
   );
 }
