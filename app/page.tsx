@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Header from "../components/Header";
 import SocialLinks from "../components/SocialLink"
+import WorkCard from "../components/WorkCard"
 
 export default function HomePage() {
   return (
@@ -48,9 +49,75 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* === Work Section === */}
+      <section id="work" aria-label="Work" className="py-12 md:py-32">
+        {/* Big heading like the reference */}
+        <div className="container-max">
+          <h2 className="text-5xl font-extrabold tracking-tight sm:text-6xl">
+            Work<span className="text-black">.</span>
+          </h2>
+        </div>
+
+        {/* Full-bleed two-column grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <WorkCard
+              href="#tokopedia"               // replace with real route later
+              title="Tokopedia"
+              titleLogo={
+                  <Image
+                      src="/Tokopedia_Logo.png"
+                      alt="Tokopedia Logo"
+                      width={190}
+                      height={40}
+                      className="object-contain"
+                  />
+              }
+              subtitle={
+                <>"As a <strong>Senior Software Engineer</strong>, I worked with Tokopedia’s <strong>Digital</strong> Team to deliver impactful digital products that drive business growth."</>
+              }
+              bgClass="bg-emerald-100"        // light green
+              icon={
+                <Image
+                    src="/Tokopedia_Mascot.png"
+                    alt="Tokopedia Mascot"
+                    fill
+                    className="object-contain"
+                    sizes="40px"
+                />
+              }
+              // spriteSrc="/tokopedia-sprite.png" // put your sprite under /public (optional)
+          />
+          <WorkCard
+              href="#bytedance"
+              title="ByteDance"
+              titleLogo={
+                  <Image
+                      src="/ByteDance_Logo.png"
+                      alt="ByteDance Logo"
+                      width={220}
+                      height={40}
+                      className="object-contain"
+                  />
+              }
+              subtitle={
+                <>"Early on at <strong>ByteDance</strong>, I led the migration of Tokopedia’s core services to the ByteDance Cloud platform, strengthening reliability and scalability."</>
+              }
+              bgClass="bg-sky-100"            // light blue
+              // spriteSrc="/bytedance-sprite.png"
+          />
+        </div>
+      </section>
+
       {/* === Footer Section === */}
       <footer className="border-t bg-gray-50 py-8">
-        <div className="container-max flex justify-center">
+        <div className="container-max flex flex-col items-center gap-6 text-center">
+            {/* === Build Info Section === */}
+            <p className="max-w-xl text-sm leading-relaxed text-gray-400">
+                Loosely designed in <span className="transition hover:text-emerald-400"><strong>Figma</strong></span> and coded in
+                <span className="transition hover:text-emerald-400"><strong> IntelliJ IDEA</strong></span>. Built with
+                <span className="transition hover:text-emerald-400"><strong> Next.js</strong></span> and <span className="transition hover:text-emerald-400"><strong>Tailwind CSS</strong></span>, deployed with
+                <span className="transition hover:text-emerald-400"><strong> Vercel</strong></span>. All text is set in the <span className="transition hover:text-emerald-400"><strong>Plus Jakarta Sans</strong></span> typeface.
+            </p>
           <div className="pt-4">
             <SocialLinks />
           </div>

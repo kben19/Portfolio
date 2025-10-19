@@ -22,3 +22,6 @@ npm start
 - TypeScript strict mode
 - ESLint (Next config)
 - Example components and SEO metadata
+
+## Check it out!
+www.kelvinbenzali.com 
