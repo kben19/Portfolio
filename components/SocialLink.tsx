@@ -1,40 +1,29 @@
 import Link from "next/link";
-import {
-    SiGithub,
-    SiLinkedin,
-    SiMedium,
-} from "react-icons/si";
 
-export default function SocialLinks() {
-    const links = [
-        {
-            href: "https://github.com/kben19",
-            label: "GitHub",
-            icon: <SiGithub size={22} />,
-        },
-        {
-            href: "https://www.linkedin.com/in/kelvin-benzali-41b32453/",
-            label: "LinkedIn",
-            icon: <SiLinkedin size={22} />,
-        },
-        {
-            href: "https://medium.com/@kevinesia",
-            label: "Medium",
-            icon: <SiMedium size={22}/>,
-        },
-    ];
+type SocialLink = {
+    icon: React.ReactNode;
+    url: string;
+    label?: string; // optional for accessibility
+};
 
+interface Props {
+    links: SocialLink[];
+    className?: string;
+}
+
+export default function SocialLinks({ links, className = "" }: Props) {
     return (
         <div className="flex items-center gap-5 text-gray-400">
-            {links.map((l) => (
+            {links.map((link, index) => (
                 <Link
-                    key={l.href}
-                    href={l.href}
-                    aria-label={l.label}
+                    key={index}
+                    href={link.url}
                     target="_blank"
-                    className="transition hover:text-emerald-400 hover:scale-110"
+                    rel="noopener noreferrer"
+                    aria-label={link.label || "social link"}
+                    className="text-gray-400 hover:text-emerald-400 transition-transform duration-300 hover:scale-110"
                 >
-                    {l.icon}
+                    {link.icon}
                 </Link>
             ))}
         </div>

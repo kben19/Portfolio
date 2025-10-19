@@ -3,6 +3,10 @@ import Image from "next/image";
 import Header from "../components/Header";
 import SocialLinks from "../components/SocialLink"
 import WorkCard from "../components/WorkCard"
+import Contact from "../components/Contact"
+import tokopediaLogo from "../public/Tokopedia_Logo.png";
+import bytedanceLogo from "../public/ByteDance_Logo.png";
+import {SiGithub, SiLinkedin, SiMedium} from "react-icons/si";
 
 export default function HomePage() {
   return (
@@ -14,12 +18,12 @@ export default function HomePage() {
       >
         {/* Left: text */}
         <div className="space-y-6">
-          <p className="text-base font-semibold text-gray-700">
+          <p className="text-lg font-semibold text-gray-700">
             Senior Software Engineer |{" "}
             <span className="text-emerald-500">Tokopedia</span>
           </p>
 
-          <h1 className="text-5xl font-semibold leading-tight tracking-tight sm:text-6xl">
+          <h1 className="text-6xl font-semibold leading-tight tracking-tight sm:text-6xl">
             Kelvin Benzali
           </h1>
 
@@ -32,14 +36,30 @@ export default function HomePage() {
             </p>
           </div>
           <div className="pt-4">
-            <SocialLinks />
+            <SocialLinks links={[
+                {
+                    url: "https://github.com/kben19",
+                    label: "GitHub",
+                    icon: <SiGithub size={22} />,
+                },
+                {
+                    url: "https://www.linkedin.com/in/kelvin-benzali-41b32453/",
+                    label: "LinkedIn",
+                    icon: <SiLinkedin size={22} />,
+                },
+                {
+                    url: "https://medium.com/@kevinesia",
+                    label: "Medium",
+                    icon: <SiMedium size={22}/>,
+                },
+            ]} />
           </div>
         </div>
 
         {/* Right: photo */}
         <div className="relative order-first aspect-[4/3] w-full overflow-hidden rounded-2xl border md:order-none md:aspect-[4/3]">
           <Image
-            src="/me-hero.png"   // put your photo in /public as kelvin-hero.jpg
+            src="/me-hero.png"
             alt="Kelvin Benzali at his desk"
             fill
             className="object-cover"
@@ -50,10 +70,10 @@ export default function HomePage() {
       </section>
 
       {/* === Work Section === */}
-      <section id="work" aria-label="Work" className="py-12 md:py-32">
+      <section id="work" aria-label="Work" className="py-20 md:py-32">
         {/* Big heading like the reference */}
         <div className="container-max">
-          <h2 className="text-5xl font-extrabold tracking-tight sm:text-6xl">
+          <h2 className="font-extrabold tracking-tight relative top-12 z-20 text-[14vw] sm:text-[12vw] md:text-[10vw]">
             Work<span className="text-black">.</span>
           </h2>
         </div>
@@ -65,10 +85,12 @@ export default function HomePage() {
               title="Tokopedia"
               titleLogo={
                   <Image
-                      src="/Tokopedia_Logo.png"
+                      src={tokopediaLogo}
                       alt="Tokopedia Logo"
-                      width={190}
+                      width={190}           // max width for desktop
                       height={40}
+                      priority              // above-the-fold → preload for faster LCP
+                      placeholder="blur"    // automatic blur from the import
                       className="object-contain"
                   />
               }
@@ -85,17 +107,18 @@ export default function HomePage() {
                     sizes="40px"
                 />
               }
-              // spriteSrc="/tokopedia-sprite.png" // put your sprite under /public (optional)
           />
           <WorkCard
               href="#bytedance"
               title="ByteDance"
               titleLogo={
                   <Image
-                      src="/ByteDance_Logo.png"
+                      src={bytedanceLogo}
                       alt="ByteDance Logo"
                       width={220}
                       height={40}
+                      priority              // above-the-fold → preload for faster LCP
+                      placeholder="blur"    // automatic blur from the import
                       className="object-contain"
                   />
               }
@@ -103,10 +126,22 @@ export default function HomePage() {
                 <>"Early on at <strong>ByteDance</strong>, I led the migration of Tokopedia’s core services to the ByteDance Cloud platform, strengthening reliability and scalability."</>
               }
               bgClass="bg-sky-100"            // light blue
-              // spriteSrc="/bytedance-sprite.png"
           />
         </div>
       </section>
+
+        <Contact
+            email="kevinesia@gmail.com"
+            blurb={
+                <>
+                    I love solving complex problems and designing resilient systems. If you are interested to connect,
+                    let’s chat — I’m open to collaborations and opportunities.
+                </>
+            }
+            name="Kelvin Benzali"
+            location="Jakarta, Indonesia"
+            photoSrc="/contact-photo.jpeg"
+        />
 
       {/* === Footer Section === */}
       <footer className="border-t bg-gray-50 py-8">
@@ -119,7 +154,23 @@ export default function HomePage() {
                 <span className="transition hover:text-emerald-400"><strong> Vercel</strong></span>. All text is set in the <span className="transition hover:text-emerald-400"><strong>Plus Jakarta Sans</strong></span> typeface.
             </p>
           <div className="pt-4">
-            <SocialLinks />
+            <SocialLinks links={[
+                {
+                    url: "https://github.com/kben19",
+                    label: "GitHub",
+                    icon: <SiGithub size={22} />,
+                },
+                {
+                    url: "https://www.linkedin.com/in/kelvin-benzali-41b32453/",
+                    label: "LinkedIn",
+                    icon: <SiLinkedin size={22} />,
+                },
+                {
+                    url: "https://medium.com/@kevinesia",
+                    label: "Medium",
+                    icon: <SiMedium size={22}/>,
+                },
+            ]} />
           </div>
         </div>
       </footer>
