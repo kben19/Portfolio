@@ -48,7 +48,7 @@ export default function ContactSection({ email, blurb, name, location, photoSrc 
                         <div className="pt-4">
                             <SocialLinks links={[
                                 {
-                                    url: "https://www.linkedin.com/in/kelvin-benzali-41b32453/",
+                                    url: "https://www.linkedin.com/in/kelvin-benzali/",
                                     label: "LinkedIn",
                                     icon: <SiLinkedin size={22} />,
                                 },

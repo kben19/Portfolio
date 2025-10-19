@@ -43,7 +43,7 @@ export default function HomePage() {
                     icon: <SiGithub size={22} />,
                 },
                 {
-                    url: "https://www.linkedin.com/in/kelvin-benzali-41b32453/",
+                    url: "https://www.linkedin.com/in/kelvin-benzali/",
                     label: "LinkedIn",
                     icon: <SiLinkedin size={22} />,
                 },
@@ -161,7 +161,7 @@ export default function HomePage() {
                     icon: <SiGithub size={22} />,
                 },
                 {
-                    url: "https://www.linkedin.com/in/kelvin-benzali-41b32453/",
+                    url: "https://www.linkedin.com/in/kelvin-benzali/",
                     label: "LinkedIn",
                     icon: <SiLinkedin size={22} />,
                 },
