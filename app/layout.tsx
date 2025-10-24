@@ -13,11 +13,17 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "Kelvin Benzali — Portfolio",
   description: "Software Engineer portfolio built with Next.js, Tailwind CSS, and TypeScript.",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-192.png",
+    apple: "/favicon-192.png",
+  },
   metadataBase: new URL("https://example.com"),
   openGraph: {
     title: "Kelvin Benzali — Portfolio",
     description: "Software Engineer portfolio built with Next.js, Tailwind CSS, and TypeScript.",
-    type: "website"
+    type: "website",
+    url: "https://www.kelvinbenzali.com",
   },
   twitter: {
     card: "summary_large_image",
