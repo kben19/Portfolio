@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={jakarta.variable}>
       <body>
-        <div className="container-max py-10">{children}</div>
+        <div className="bg-white text-gray-900 antialiased">{children}</div>
         <Analytics />
         <SpeedInsights />
       </body>

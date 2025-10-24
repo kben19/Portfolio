@@ -11,19 +11,23 @@ import {SiGithub, SiLinkedin, SiMedium} from "react-icons/si";
 export default function HomePage() {
   return (
     <>
-      <Header />
+      <Header links={[
+          { href: "#about", label: "About" },
+          { href: "#work", label: "Work" },
+          { href: "#contact", label: "Contact" },
+      ]}/>
       <section
         aria-label="Hero"
         className="container-max grid items-center gap-10 pb-16 pt-6 md:grid-cols-2 md:gap-12"
       >
         {/* Left: text */}
         <div className="space-y-6">
-          <p className="text-lg font-semibold text-gray-700">
+          <p className="text-sm sm:text-lg md:text-xl lg:text-2xl font-semibold text-gray-700">
             Senior Software Engineer |{" "}
             <span className="text-emerald-500">Tokopedia</span>
           </p>
 
-          <h1 className="text-6xl font-semibold leading-tight tracking-tight sm:text-6xl">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight tracking-tight">
             Kelvin Benzali
           </h1>
 
@@ -79,9 +83,9 @@ export default function HomePage() {
         </div>
 
         {/* Full-bleed two-column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2">
+        <div className="container-max grid md:grid-cols-2">
           <WorkCard
-              href="#tokopedia"               // replace with real route later
+              href="/project#tokopedia"
               title="Tokopedia"
               titleLogo={
                   <Image
@@ -109,7 +113,7 @@ export default function HomePage() {
               }
           />
           <WorkCard
-              href="#bytedance"
+              href="/project#bytedance"
               title="ByteDance"
               titleLogo={
                   <Image

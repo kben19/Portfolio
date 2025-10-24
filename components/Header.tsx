@@ -1,13 +1,16 @@
 // components/Header.tsx
 import Link from "next/link";
 
-const links = [
-  { href: "#about", label: "About" },
-  { href: "#work", label: "Work" },
-  { href: "#contact", label: "Contact" },
-];
+type HeaderLink = {
+    href: string;
+    label: string;
+};
 
-export default function Header() {
+interface Props {
+    links: HeaderLink[];
+}
+
+export default function Header({ links }: Props) {
   return (
     <header className="container-max py-4 pr-6">
       <nav className="flex justify-end">

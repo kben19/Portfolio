@@ -21,13 +21,11 @@ export default function WorkCard({
     spriteSrc
 }: WorkCardProps) {
     return (
-        <Link
-            href={href}
+        <div
             className={[
                 "group relative block overflow-hidden",
                 bgClass,
             ].join(" ")}
-            aria-label={`${title} — View projects`}
         >
             {/* Background sprite (optional) */}
             {spriteSrc && (
@@ -38,9 +36,6 @@ export default function WorkCard({
                     className="pointer-events-none object-cover opacity-40 transition duration-700 group-hover:scale-105"
                 />
             )}
-
-            {/* Overlay gradient */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/5 to-black/15" />
 
             {/* Content */}
             <div className="relative z-10 flex h-[18rem] items-center justify-center p-8 md:h-[22rem] lg:h-[26rem]">
@@ -60,25 +55,33 @@ export default function WorkCard({
                     </div>
 
                     {subtitle && (
-                        <p className="mt-2 text-sm text-gray-700/80 transition-transform duration-300 ease-out group-hover:translate-y-1.5">{subtitle}</p>
+                        <p className="mt-2 text-gray-700/80 transition-transform duration-300 ease-out group-hover:translate-y-1.5">{subtitle}</p>
                     )}
-
-                    {/* ===== CTA: “View Projects” ===== */}
-                    <div className="relative mt-6 h-0 overflow-visible">
-            <span
-                className="
-                inline-flex translate-y-[-8px] opacity-0
-                rounded-md bg-gray-900 px-3 py-1.5 text-xs font-medium text-white
-                shadow-sm ring-1 ring-black/5
-                transition-all duration-300 ease-out
-                group-hover:translate-y-0 group-hover:opacity-100
-              "
-            >
-              View projects
-            </span>
-                    </div>
                 </div>
             </div>
-        </Link>
+            {/* === Reveal bar (full width) === */}
+            <Link
+                href={href}
+                aria-label={`${title} — View project`}
+                className="
+                    absolute inset-x-0 bottom-0
+                    z-20                               /* bring it above inner content */
+                    flex items-center justify-center
+                    h-[15%] min-h-[44px]
+                    bg-slate-900 text-white
+                    text-xl font-bold tracking-wide
+                    opacity-0 translate-y-full pointer-events-none
+                    transition-all duration-300 ease-out
+                    group-hover:opacity-80 group-hover:translate-y-0 group-hover:pointer-events-auto
+
+                    hover:text-white hover:bg-slate-900/95
+                    hover:[text-shadow:0_0_10px_rgba(255,255,255,0.35)]
+                    hover:brightness-110
+                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60
+                "
+            >
+                View Project
+            </Link>
+        </div>
     );
 }

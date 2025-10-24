@@ -18,5 +18,15 @@ body {
 }
 
 .container-max {
-  @apply max-w-7xl mx-auto px-6;
+  @apply w-full max-w-7xl mx-auto px-6;
+  max-width: clamp(72rem, 86vw, 110rem); /* ~1152px → fluid → cap ~1760px */
+}
+
+@keyframes typing-dot {
+  0%, 80%, 100% { opacity: 0; }
+  40% { opacity: 1; }
+}
+
+.animate-typing-dot {
+  animation: typing-dot 1.2s ease-out infinite;
 }
