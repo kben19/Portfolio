@@ -31,6 +31,10 @@ export default async function HomePage() {
 
     // Insert traffic metadata
     try {
+        if (/(bot|crawler|spider|crawling|vercel-screenshot)/i.test(ua)) {
+            // Skipping Vercel screenshot bot and other bots
+            return;
+        }
         await supabase.from('traffic_events').insert([
             {
                 path: '/',
