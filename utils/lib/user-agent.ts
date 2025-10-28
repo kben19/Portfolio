@@ -21,3 +21,21 @@ export function detectOS({
     if (/linux/i.test(u)) return 'linux';
     return 'other';
 }
+
+export function detectBrowser(ua: string): string {
+    ua = ua.toLowerCase();
+
+    if (ua.includes("edg/") || ua.includes("edga/") || ua.includes("edgios")) return "Microsoft Edge";
+    if (ua.includes("opr/") || ua.includes("opera")) return "Opera";
+    if (ua.includes("chrome") && !ua.includes("chromium") && !ua.includes("edg/")) return "Chrome";
+    if (ua.includes("firefox")) return "Firefox";
+    if (ua.includes("safari") && !ua.includes("chrome")) return "Safari";
+    if (ua.includes("chromium")) return "Chromium";
+    if (ua.includes("brave")) return "Brave";
+    if (ua.includes("vivaldi")) return "Vivaldi";
+    if (ua.includes("duckduckgo")) return "DuckDuckGo";
+    if (ua.includes("vercel-favicon") || ua.includes("vercel-screenshot")) return "Vercel Bot";
+    if (ua.includes("bot") || ua.includes("crawler") || ua.includes("spider")) return "Bot";
+
+    return "Unknown";
+}

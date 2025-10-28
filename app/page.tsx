@@ -11,7 +11,7 @@ import { createServerComponentClient } from '../utils/supabase/server';
 import { getUserAgent, getUserAgentPlatform, getCountry, getReferrer, getClientIP, getOrSetSessionId } from '../utils/lib/req';
 import { sha256Hex } from '../utils/lib/encode';
 import { isoDateKey } from '../utils/lib/date';
-import { detectOS } from '../utils/lib/os';
+import {detectBrowser, detectOS} from '../utils/lib/user-agent';
 import { SiGithub, SiLinkedin, SiMedium } from "react-icons/si";
 import { InitSessionCookie } from "../components/InitSession";
 
@@ -29,6 +29,7 @@ export default async function HomePage() {
     const ip = getClientIP()       // may be null on some proxies/bots
     const ip_hash = ip ? await sha256Hex(ip) : '';
     const session_id = await getOrSetSessionId();
+    const browser_type = detectBrowser(ua);
 
     // Insert traffic metadata
     try {
@@ -50,6 +51,7 @@ export default async function HomePage() {
                 user_agent: ua,
                 device_type: /mobile|android|iphone/i.test(ua) ? 'mobile' : 'desktop',
                 os_type: os,
+                browser_type: browser_type,
                 meta: {visited_at: new Date().toISOString()},
                 referrer: getReferrer(),
                 ip_hash: ip_hash,
