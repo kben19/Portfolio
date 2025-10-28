@@ -18,12 +18,12 @@ export default function ContactSection({ email, blurb, name, location, photoSrc 
             {/* Oversized heading */}
             <h2
                 aria-hidden
-                className="pointer-events-none select-none relative top-4 left-4 z-20 leading-none font-extrabold text-black text-[14vw] sm:text-[12vw] md:text-[10vw]"
+                className="pointer-events-none select-none relative top-4 left-6 z-20 leading-none font-extrabold text-black text-[14vw] sm:text-[12vw] md:text-[10vw]"
             >
                 Say hi.
             </h2>
 
-            <div className="container-max relative z-10 grid md:grid-cols-2 items-stretch">
+            <div className="relative z-10 grid md:grid-cols-2 items-stretch">
                 {/* Left panel */}
                 <div className="h-full bg-slate-800 p-6 text-slate-100 sm:p-10 md:p-12 flex flex-col">
                     <div className="space-y-6">

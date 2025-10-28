@@ -14,6 +14,7 @@ import { isoDateKey } from '../utils/lib/date';
 import {detectBrowser, detectOS} from '../utils/lib/user-agent';
 import { SiGithub, SiLinkedin, SiMedium } from "react-icons/si";
 import { InitSessionCookie } from "../components/InitSession";
+import AboutSection from "../components/About";
 
 export default async function HomePage() {
     const hasSid = cookies().has('sid') // server can read HttpOnly cookies
@@ -125,17 +126,19 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <AboutSection />
+
       {/* === Work Section === */}
-      <section id="work" aria-label="Work" className="py-20 md:py-32">
+      <section id="work" aria-label="Work" className="py-20 md:py-32 w-full">
         {/* Big heading like the reference */}
-        <div className="container-max">
+        <div className="relative container-max">
           <h2 className="font-extrabold tracking-tight relative top-12 z-20 text-[14vw] sm:text-[12vw] md:text-[10vw]">
             Work<span className="text-black">.</span>
           </h2>
         </div>
 
         {/* Full-bleed two-column grid */}
-        <div className="container-max grid md:grid-cols-2">
+        <div className="relative grid md:grid-cols-2">
           <WorkCard
               href="/project#tokopedia"
               title="Tokopedia"
@@ -151,17 +154,17 @@ export default async function HomePage() {
                   />
               }
               subtitle={
-                <>"As a <strong>Senior Software Engineer</strong>, I worked with Tokopedia’s <strong>Digital</strong> Team to deliver impactful digital products that drive business growth."</>
+                  <>"As a <strong>Senior Software Engineer</strong>, I worked with Tokopedia’s <strong>Digital</strong> Team to deliver impactful digital products that drive business growth."</>
               }
               bgClass="bg-emerald-100"        // light green
               icon={
-                <Image
-                    src="/Tokopedia_Mascot.png"
-                    alt="Tokopedia Mascot"
-                    fill
-                    className="object-contain"
-                    sizes="40px"
-                />
+                  <Image
+                      src="/Tokopedia_Mascot.png"
+                      alt="Tokopedia Mascot"
+                      fill
+                      className="object-contain"
+                      sizes="40px"
+                  />
               }
           />
           <WorkCard
@@ -179,25 +182,25 @@ export default async function HomePage() {
                   />
               }
               subtitle={
-                <>"Early on at <strong>ByteDance</strong>, I led the migration of Tokopedia’s core services to the ByteDance Cloud platform, strengthening reliability and scalability."</>
+                  <>"Early on at <strong>ByteDance</strong>, I led the migration of Tokopedia’s core services to the ByteDance Cloud platform, strengthening reliability and scalability."</>
               }
-              bgClass="bg-sky-100"            // light blue
+              bgClass="bg-sky-100"
           />
         </div>
       </section>
 
-        <Contact
-            email="kevinesia@gmail.com"
-            blurb={
-                <>
-                    I love solving complex problems and designing resilient systems. If you are interested to connect,
-                    let’s chat — I’m open to collaborations and opportunities.
-                </>
-            }
-            name="Kelvin Benzali"
-            location="Jakarta, Indonesia"
-            photoSrc="/contact-photo.jpeg"
-        />
+      <Contact
+        email="kevinesia@gmail.com"
+        blurb={
+            <>
+                I love solving complex problems and designing resilient systems. If you are interested to connect,
+                let’s chat — I’m open to collaborations and opportunities.
+            </>
+        }
+        name="Kelvin Benzali"
+        location="Jakarta, Indonesia"
+        photoSrc="/contact-photo.jpeg"
+      />
 
       {/* === Footer Section === */}
       <footer className="border-t bg-gray-50 py-8">
