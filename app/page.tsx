@@ -1,6 +1,6 @@
 // app/page.tsx
 import Image from "next/image";
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import Header from "../components/Header";
 import SocialLinks from "../components/SocialLink";
 import WorkCard from "../components/WorkCard";
@@ -21,6 +21,7 @@ export default async function HomePage() {
     const { data: events, error } = await supabase.from('traffic_events').select('*')
     if (error) console.error('Supabase query error:', error)
 
+    const hdrs = headers()
     const country = getCountry();
     const ua = getUserAgent() || 'unknown';
     const uaPlatform = getUserAgentPlatform(); // UA-CH
@@ -31,9 +32,16 @@ export default async function HomePage() {
 
     // Insert traffic metadata
     try {
-        if (/(bot|crawler|spider|crawling|vercel-screenshot)/i.test(ua)) {
+        const isBot = /(vercel-(favicon|screenshot)|bot|crawler|spider|crawl|crawling|preview|uptime)/i.test(ua)
+        if (isBot) {
             // Skipping Vercel screenshot bot and other bots
             return;
+        }
+        const dest = hdrs.get('sec-fetch-dest')      // e.g. 'document', 'image', 'script'
+        const mode = hdrs.get('sec-fetch-mode')      // e.g. 'navigate'
+        if (!(dest === 'document' && mode === 'navigate')) {
+            // e.g. favicon fetches are often not document navigations
+            return
         }
         await supabase.from('traffic_events').insert([
             {
