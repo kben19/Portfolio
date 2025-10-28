@@ -18,8 +18,6 @@ import { InitSessionCookie } from "../components/InitSession";
 export default async function HomePage() {
     const hasSid = cookies().has('sid') // server can read HttpOnly cookies
     const supabase = createServerComponentClient()
-    const { data: events, error } = await supabase.from('traffic_events').select('*')
-    if (error) console.error('Supabase query error:', error)
 
     const hdrs = headers()
     const country = getCountry();

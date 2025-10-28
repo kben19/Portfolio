@@ -25,7 +25,11 @@ export default function LoginPage() {
             provider,
             options: { redirectTo: `${location.origin}/auth/callback` },
         })
-        if (error) setErrorMsg(error.message)
+        if (error) {
+            setErrorMsg(error.message)
+        } else {
+            console.log("Successful login onOAuth ", provider);
+        }
         // for OAuth you’ll be redirected automatically
     }
 
