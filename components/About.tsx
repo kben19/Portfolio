@@ -28,14 +28,14 @@ export default async function AboutSection() {
     const [pvNow, pvPrev, uNow, uPrev] = await Promise.all([
         supabase.from('traffic_events').select('id', { count: 'exact', head: true }).gte('date_key', start).lte('date_key', end),
         supabase.from('traffic_events').select('id', { count: 'exact', head: true }).gte('date_key', startPreviousStr).lte('date_key', endPreviousStr),
-        supabase.rpc<number>('count_unique_visitors', { start_date: start, end_date: end }),
-        supabase.rpc<number>('count_unique_visitors', { start_date: startPreviousStr, end_date: endPreviousStr }),
+        supabase.rpc('count_unique_visitors', { start_date: start, end_date: end }),
+        supabase.rpc('count_unique_visitors', { start_date: startPreviousStr, end_date: endPreviousStr }),
     ]);
 
-    const pageViews = pvNow.count ?? 0;
-    const pageViewsPrev = pvPrev.count ?? 0;
-    const uniqueNow = uNow.data ?? 0;
-    const uniquePrev = uPrev.data ?? 0;
+    const pageViews = Number(pvNow.count ?? 0);
+    const pageViewsPrev = Number(pvPrev.count ?? 0);
+    const uniqueNow = Number(uNow.data ?? 0);
+    const uniquePrev = Number(uPrev.data ?? 0);
 
     const deltaPV = Math.round(pctChange(pageViews, pageViewsPrev));
     const deltaUnique = Math.round(pctChange(uniqueNow, uniquePrev));
