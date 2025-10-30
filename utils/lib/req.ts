@@ -1,5 +1,5 @@
 // lib/req.ts
-import { headers, cookies } from 'next/headers'
+import {headers} from 'next/headers'
 
 export function getReferrer() {
     // header is "referer" (single r) in HTTP
@@ -31,7 +31,5 @@ export function getClientIP() {
 // Simple sticky session id (1y) for grouping a visitor across pages
 export async function getOrSetSessionId() {
     'use server'
-    const jar = cookies()
-    const existing = jar.get('sid')?.value
-    return existing || null
+    return headers().get('x-session-id')
 }

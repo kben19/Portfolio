@@ -1,6 +1,6 @@
 // app/page.tsx
 import Image from "next/image";
-import { cookies, headers } from 'next/headers'
+import { headers } from 'next/headers'
 import Header from "../components/Header";
 import SocialLinks from "../components/SocialLink";
 import WorkCard from "../components/WorkCard";
@@ -11,13 +11,11 @@ import { createServerComponentClient } from '../utils/supabase/server';
 import { getUserAgent, getUserAgentPlatform, getCountry, getReferrer, getClientIP, getOrSetSessionId } from '../utils/lib/req';
 import { sha256Hex } from '../utils/lib/encode';
 import { isoDateKey } from '../utils/lib/date';
-import {detectBrowser, detectOS} from '../utils/lib/user-agent';
+import { detectBrowser, detectOS } from '../utils/lib/user-agent';
 import { SiGithub, SiLinkedin, SiMedium } from "react-icons/si";
-import { InitSessionCookie } from "../components/InitSession";
 import AboutSection from "../components/About";
 
 export default async function HomePage() {
-    const hasSid = cookies().has('sid') // server can read HttpOnly cookies
     const supabase = createServerComponentClient()
 
     const hdrs = headers()
@@ -63,7 +61,6 @@ export default async function HomePage() {
     }
   return (
     <>
-        {!hasSid && <InitSessionCookie />} {/* only render if missing */}
       <Header links={[
           { href: "#about", label: "About" },
           { href: "#work", label: "Work" },
