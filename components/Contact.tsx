@@ -25,7 +25,7 @@ export default function ContactSection({ email, blurb, name, location, photoSrc 
 
             <div className="relative z-10 grid md:grid-cols-2 items-stretch">
                 {/* Left panel */}
-                <div className="h-full bg-slate-800 p-6 text-slate-100 sm:p-10 md:p-12 flex flex-col">
+                <div className="h-full bg-slate-800 p-10 text-slate-100 sm:p-12 md:p-14 lg:p-20 flex flex-col">
                     <div className="space-y-6">
                         <div>
                             <Link

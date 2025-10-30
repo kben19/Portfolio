@@ -1,6 +1,8 @@
 // components/AboutSection.tsx
 import MiniDashboard from "./MiniDashboard";
 import { createServerComponentClient } from "../utils/supabase/server";
+import { SiSupabase } from "react-icons/si";
+import SocialLinks from "./SocialLink";
 
 function pctChange(curr?: number | null, prev?: number | null) {
     const c = curr ?? 0;
@@ -42,15 +44,15 @@ export default async function AboutSection() {
 
     return (
         <section id="about" className="w-full bg-[#0f1b2a] text-white">
-            <div className="container-max py-12 md:py-16">
-                <h2 className="mb-6 text-2xl font-bold tracking-tight md:text-3xl">
+            <div className="container-max py-12 md:py-16 lg:py-20">
+                <h2 className="mb-6 text-3xl sm:text-3xl md:text-4xl lg:text-6xl font-bold tracking-tight">
                     About Me:
                 </h2>
 
                 {/* 70:30 layout – stacks on mobile */}
                 <div className="grid gap-8 md:grid-cols-[7fr_3fr]">
                     {/* Left: paragraph */}
-                    <div className="max-w-prose text-white/90 leading-relaxed [&>p>strong]:text-rose-400 [&>p>b]:text-rose-400">
+                    <div className="max-w-prose text-lg lg:text-xl text-white/90 leading-relaxed [&>p>strong]:text-rose-400 [&>p>b]:text-rose-400 content-center">
                         <p>
                             For me, creating an app is not just solving a problem. It is about
                             the continuity and a <b>meaningful impact</b> that we can bring to others.
@@ -63,20 +65,32 @@ export default async function AboutSection() {
                     </div>
 
                     {/* Right: reserved mini-dashboard area */}
-                    <MiniDashboard cards={[
-                        {
-                            label:"Visitors",
-                            value: uniqueNow ?? 1,
-                            delta: deltaUnique+"%",
-                            deltaTone:"good"
-                        },
-                        {
-                            label:"Page Views",
-                            value: pageViews ?? 1,
-                            delta: deltaPV+"%",
-                            deltaTone:"good"
-                        }
-                    ]}/>
+                    <div>
+                        <MiniDashboard cards={[
+                            {
+                                label:"Visitors",
+                                value: uniqueNow ?? 1,
+                                delta: deltaUnique+"%",
+                                deltaTone:"good"
+                            },
+                            {
+                                label:"Page Views",
+                                value: pageViews ?? 1,
+                                delta: deltaPV+"%",
+                                deltaTone:"good"
+                            }
+                        ]}/>
+                        <div className="flex pt-4 gap-2 pl-2">
+                            <p className="text-sm leading-relaxed text-gray-400">Powered by Supabase </p>
+                            <SocialLinks links={[
+                                {
+                                    url: "https://supabase.com",
+                                    label: "Supabase",
+                                    icon: <SiSupabase size={22} />,
+                                },
+                            ]}/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

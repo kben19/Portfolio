@@ -207,7 +207,7 @@ export default async function HomePage() {
                 Loosely designed in <span className="transition hover:text-emerald-400"><strong>Figma</strong></span> and coded in
                 <span className="transition hover:text-emerald-400"><strong> IntelliJ IDEA</strong></span>. Built with
                 <span className="transition hover:text-emerald-400"><strong> Next.js</strong></span> and <span className="transition hover:text-emerald-400"><strong>Tailwind CSS</strong></span>, deployed with
-                <span className="transition hover:text-emerald-400"><strong> Vercel</strong></span>. All text is set in the <span className="transition hover:text-emerald-400"><strong>Plus Jakarta Sans</strong></span> typeface.
+                <span className="transition hover:text-emerald-400"><strong> Vercel</strong></span> and powered by<strong> Supabase</strong>. All text is set in the <span className="transition hover:text-emerald-400"><strong>Plus Jakarta Sans</strong></span> typeface.
             </p>
           <div className="pt-4">
             <SocialLinks links={[
