@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Header from "../../components/Header";
+import { insertEvent } from "../../utils/lib/event";
 
 export default function ProjectPage() {
+    insertEvent('/project')
     return (
         <>
             <Header links={[

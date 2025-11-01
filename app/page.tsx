@@ -1,64 +1,17 @@
 // app/page.tsx
 import Image from "next/image";
-import { headers } from 'next/headers'
 import Header from "../components/Header";
 import SocialLinks from "../components/SocialLink";
 import WorkCard from "../components/WorkCard";
 import Contact from "../components/Contact";
 import tokopediaLogo from "../public/Tokopedia_Logo.png";
 import bytedanceLogo from "../public/ByteDance_Logo.png";
-import { createServerComponentClient } from '../utils/supabase/server';
-import { getUserAgent, getUserAgentPlatform, getCountry, getReferrer, getClientIP, getOrSetSessionId } from '../utils/lib/req';
-import { sha256Hex } from '../utils/lib/encode';
-import { isoDateKey } from '../utils/lib/date';
-import { detectBrowser, detectOS } from '../utils/lib/user-agent';
 import { SiGithub, SiLinkedin, SiMedium } from "react-icons/si";
 import AboutSection from "../components/About";
+import { insertEvent } from "../utils/lib/event";
 
 export default async function HomePage() {
-    const supabase = createServerComponentClient()
-
-    const hdrs = headers()
-    const country = getCountry();
-    const ua = getUserAgent() || 'unknown';
-    const uaPlatform = getUserAgentPlatform(); // UA-CH
-    const os = detectOS({ ua, uaPlatform });
-    const ip = getClientIP()       // may be null on some proxies/bots
-    const ip_hash = ip ? await sha256Hex(ip) : '';
-    const session_id = await getOrSetSessionId();
-    const browser_type = detectBrowser(ua);
-
-    // Insert traffic metadata
-    try {
-        const isBot = /(vercel-(favicon|screenshot)|bot|crawler|spider|crawl|crawling|preview|uptime)/i.test(ua)
-        if (isBot) {
-            // Skipping Vercel screenshot bot and other bots
-            return;
-        }
-        const dest = hdrs.get('sec-fetch-dest')      // e.g. 'document', 'image', 'script'
-        const mode = hdrs.get('sec-fetch-mode')      // e.g. 'navigate'
-        if (!(dest === 'document' && mode === 'navigate')) {
-            // e.g. favicon fetches are often not document navigations
-            return
-        }
-        await supabase.from('traffic_events').insert([
-            {
-                path: '/',
-                country,
-                user_agent: ua,
-                device_type: /mobile|android|iphone/i.test(ua) ? 'mobile' : 'desktop',
-                os_type: os,
-                browser_type: browser_type,
-                meta: {visited_at: new Date().toISOString()},
-                referrer: getReferrer(),
-                ip_hash: ip_hash,
-                session_id: session_id,
-                date_key: isoDateKey(),
-            },
-        ])
-    } catch (e) {
-        console.error('Insert failed:', e)
-    }
+  insertEvent('/')
   return (
     <>
       <Header links={[
@@ -113,7 +66,7 @@ export default async function HomePage() {
         {/* Right: photo */}
         <div className="relative order-first aspect-[4/3] w-full overflow-hidden rounded-2xl border md:order-none md:aspect-[4/3]">
           <Image
-            src="/me-hero.png"
+            src="/me-hero.jpeg"
             alt="Kelvin Benzali at his desk"
             fill
             className="object-cover"
