@@ -31,6 +31,11 @@ export async function insertEvent(path: string) {
                 // e.g. favicon fetches are often not document navigations
                 return
             }
+            const host = hdrs.get('host') || '';
+            if (process.env.NODE_ENV !== 'production' || host.includes('localhost') || host.includes('127.0.0.1')) {
+                console.log('Skipping DB insert: localhost environment detected');
+                return;
+            }
             await supabase.from('traffic_events').insert([
                 {
                     path: path,
