@@ -31,7 +31,7 @@ export default async function AboutSection() {
     oneMonthAgo.setDate(oneMonthAgo.getDate() - 31);
     const startMonthAgo = oneMonthAgo.toISOString().slice(0, 10);
 
-    const [pvNow, pvPrev, uNow, uPrev, byCountry, byDevice, byBrowser, byOS] = await Promise.all([
+    const [pvNow, pvPrev, uNow, uPrev, byCountry, byDevice, byBrowser, byOS, byReferrer] = await Promise.all([
         supabase.from('traffic_events').select('id', { count: 'exact', head: true }).gte('date_key', start).lte('date_key', end),
         supabase.from('traffic_events').select('id', { count: 'exact', head: true }).gte('date_key', startPreviousStr).lte('date_key', endPreviousStr),
         supabase.rpc('count_unique_visitors', { start_date: start, end_date: end }),
@@ -40,6 +40,7 @@ export default async function AboutSection() {
         supabase.rpc('count_events_by_device_range', { start_date: startMonthAgo, end_date: end }),
         supabase.rpc('count_events_by_browser_range', { start_date: startMonthAgo, end_date: end }),
         supabase.rpc('count_events_by_os_range', { start_date: startMonthAgo, end_date: end }),
+        supabase.rpc('count_events_by_referrer_range', { start_date: startMonthAgo, end_date: end }),
     ]);
 
     const pageViews = Number(pvNow.count ?? 0);
@@ -62,6 +63,12 @@ export default async function AboutSection() {
     const os_types = (byOS.data ?? []).map((d: any) => {
         return {
             name: d.os,
+            visitors: Number(d.event_count),
+        };
+    }).filter((x: any) => x.name!== 'Unknown');
+    const referrers = (byReferrer.data ?? []).map((d: any) => {
+        return {
+            name: d.referrer,
             visitors: Number(d.event_count),
         };
     }).filter((x: any) => x.name!== 'Unknown');
@@ -113,6 +120,7 @@ export default async function AboutSection() {
                         devices={devices}
                         browsers={browsers}
                         os={os_types}
+                        referrers={referrers}
                     />
                     <div className="flex pt-4 gap-2 pl-2">
                         <p className="text-sm leading-relaxed text-gray-400">Powered by Supabase </p>

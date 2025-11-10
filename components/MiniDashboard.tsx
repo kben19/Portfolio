@@ -7,20 +7,28 @@ import {
     Monitor,
     Smartphone,
     TabletSmartphone,
+    ExternalLink,
 } from 'lucide-react';
 import {
-  SiGooglechrome,
-  SiMozilla,
-  SiSafari,
-  SiOpera,
-  SiBrave,
-  SiVivaldi,
-  SiAndroid,
-  SiLinux,
-  SiIos,
-  SiApple,
+    SiGooglechrome,
+    SiMozilla,
+    SiSafari,
+    SiOpera,
+    SiBrave,
+    SiVivaldi,
+    SiAndroid,
+    SiLinux,
+    SiIos,
+    SiApple,
+    SiGoogle,
+    SiFacebook,
+    SiGithub,
+    SiInstagram,
+    SiGmail,
+    SiVercel,
 } from 'react-icons/si';
 import { FaEdge, FaWindows } from "react-icons/fa";
+import { BiLogoBing } from "react-icons/bi";
 
 
 const browserIconMap: Record<string, React.ReactNode> = {
@@ -41,6 +49,16 @@ const osIconMap: Record<string, React.ReactNode> = {
     ios: <SiIos className="h-4 w-4" />,
 };
 
+const referrerIconMap: Record<string, React.ReactNode> = {
+    "google.com": <SiGoogle className="h-4 w-4" />,
+    "bing.com": <BiLogoBing className="h-4 w-4" />,
+    "facebook.com": <SiFacebook className="h-4 w-4" />,
+    "github.com": <SiGithub className="h-4 w-4" />,
+    "l.instagram.com": <SiInstagram className="h-4 w-4" />,
+    "mail.google.com": <SiGmail className="h-4 w-4" />,
+    "vercel.com": <SiVercel className="h-4 w-4" />,
+}
+
 type CountryRow = { code: string; name: string; visitors: number };
 type LabeledRow = { name: string; visitors: number }; // for devices/browsers/os
 
@@ -50,6 +68,7 @@ export type MiniDashboardTabsProps = {
     devices: LabeledRow[];  // e.g., [{name:'Desktop', visitors: 75}, {name:'Mobile', visitors: 25}]
     browsers: LabeledRow[]; // e.g., [{name:'Chrome', visitors: 60}, ...]
     os: LabeledRow[];       // e.g., [{name:'Windows', visitors:56}, ...]
+    referrers: LabeledRow[];
     title?: string;
     topN?: number;          // how many to show before "View all" UX (we keep it simple here)
 };
@@ -117,6 +136,35 @@ function browserBadge(name: string) {
 function osIcon(name: string) {
     const key = name.toLowerCase();
     return osIconMap[key] ?? <span className="text-xs">{name[0]}</span>;
+}
+
+function referrerIcon(name: string) {
+    if (!name) return <span className="text-xs">?</span>;
+
+    // --- Normalize the referrer ---
+    let key = name.trim().toLowerCase();
+
+    key = fetchDomain(key);
+
+    const Icon = referrerIconMap[key];
+    if (Icon) return Icon;
+
+    // --- Fallback: first letter of domain, capitalized ---
+    const displayLetter = key[0]?.toUpperCase() ?? '?';
+    return <span className="text-xs">{displayLetter}</span>;
+}
+
+function fetchDomain(url: string) {
+    // Remove URL prefixes
+    url = url.replace(/^https?:\/\//, ''); // remove http:// or https://
+    url = url.replace(/^www\./, '');       // remove www.
+    url = url.split('/')[0];               // remove path part after domain
+
+    // remove trailing slashes or query params
+    url = url.replace(/\/.*$/, '');
+    url = url.split('?')[0];
+
+    return url
 }
 
 /* ---------- small bar list row ---------- */
@@ -200,20 +248,22 @@ function TabButtonIconOnly({
 
 /* ---------- main component ---------- */
 export default function MiniDashboardTabs({
-                                              visitors,
-                                              countries,
-                                              devices,
-                                              browsers,
-                                              os,
-                                              title = 'Showcase Dashboard',
-                                              topN = 6,
-                                          }: MiniDashboardTabsProps) {
+      visitors,
+      countries,
+      devices,
+      browsers,
+      os,
+      referrers,
+      title = 'Showcase Dashboard',
+      topN = 6,
+    }: MiniDashboardTabsProps) {
 
     const countryTotal = useMemo(() => sum(countries), [countries]);
     const deviceTotal = useMemo(() => sum(devices), [devices]);
     const browserTotal = useMemo(() => sum(browsers), [browsers]);
     const osTotal = useMemo(() => sum(os), [os]);
-    const [tab, setTab] = useState<'visitors' | 'countries' | 'devices' | 'browsers' | 'os'>('visitors')
+    const referrerTotal = useMemo(() => sum(referrers), [referrers]);
+    const [tab, setTab] = useState<'visitors' | 'countries' | 'devices' | 'browsers' | 'os' | 'referrers'>('visitors')
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
     const tabs: { key: Props['title']; id: typeof tab; label: string; icon: React.ReactNode }[] = [
         { id: 'visitors', label: 'Visitors', icon: <Users className="h-4 w-4" /> },
@@ -221,6 +271,7 @@ export default function MiniDashboardTabs({
         { id: 'devices', label: 'Devices', icon: <Monitor className="h-4 w-4" /> },
         { id: 'browsers', label: 'Browsers', icon: <Globe className="h-4 w-4" /> },
         { id: 'os', label: 'OS', icon: <TabletSmartphone className="h-4 w-4" /> },
+        { id: 'referrers', label: 'Referrers', icon: <ExternalLink className="h-4 w-4" /> },
     ] as any
 
     return (
@@ -320,6 +371,20 @@ export default function MiniDashboardTabs({
                         <span className="text-xs text-slate-400 pl-2 pt-1">Last 31 days</span>
                     </div>
                 )}
+
+                {tab === 'referrers' && (
+                    <div className="flex flex-col gap-2">
+                        {referrers.slice(0, topN).map((o) => (
+                            <BarRow
+                                key={fetchDomain(o.name)}
+                                icon={referrerIcon(o.name)}
+                                left={<span>{fetchDomain(o.name)}</span>}
+                                rightPct={pct(o.visitors, referrerTotal)}
+                            />
+                        ))}
+                        <span className="text-xs text-slate-400 pl-2 pt-1">Last 31 days</span>
+                    </div>
+                )}
             </div>
         </div>
     );
@@ -349,25 +414,3 @@ function MetricCard({ label, value, delta, deltaTone = "good", helpText }: Metri
         </div>
     );
 }
-//
-// export default function MiniDashboard({cards}: MiniDashboardProps) {
-//     return (
-//         <div className="rounded-2xl border border-white/10 bg-white/5 p-4 md:p-5">
-//             <p className="mb-3 text-sm font-medium text-white/80">Showcase Dashboard (WIP)</p>
-//
-//             {/* Vertical stack for narrow column */}
-//             <div className="flex flex-col gap-3">
-//                 {cards.map((card, index) => (
-//                     <MetricCard
-//                         key={index}
-//                         label={card.label}
-//                         value={card.value}
-//                         delta={card.delta}
-//                         deltaTone={card.deltaTone}
-//                         helpText="Last 7 days"
-//                     />
-//                 ))}
-//             </div>
-//         </div>
-//     );
-// }
