@@ -2,6 +2,7 @@ import Image from "next/image";
 import Header from "../../components/Header";
 import { insertEvent } from "../../utils/lib/event";
 import { Calendar, GitBranch, ArrowRight, ExternalLink, Server, Workflow, ShieldCheck } from "lucide-react";
+import {getTechIcon} from "../../utils/lib/icon";
 
 type Project = {
     id: string;
@@ -19,23 +20,44 @@ type Project = {
 
 const projects: Project[] = [
     {
+        id: "2025-toko-migration",
+        year: 2025,
+        month: "March",
+        title: "Cloud Migration — Migration Tokopedia Digital Core Service",
+        role: "Senior Software Engineer — Tokopedia Digital",
+        subtitle:
+            "Led the migration project of the digital core service to ByteDance cloud platform.",
+        impact:
+            "Successful migration service reduce ~20% infrastructure cost, increasing stability while maintaining SLOs",
+        bullets: [
+            "Standardized new design docs, runbooks, updated SOP/playbooks in terms of development, scaling operations and monitoring.",
+            "Optimizing and refactor the migrated services to improve performance and stability within the new cloud environment."
+        ],
+        tech: ["Go", "Docker", "Kubernetes", "gRPC", "Postgresql", "mysql", "Redis", "NSQ", "Nginx", "GCP", "AWS"],
+        links: [
+            { label: "Tokopedia Digital App", href: "https://www.tokopedia.com/top-up-tagihan"}
+        ],
+        images: [
+            { src: "/images/projects/2024-sandbox-ephemeral.png", alt: "Ephemeral environment preview" },
+            { src: "/images/projects/2024-ci-gates.png", alt: "CI gates illustration" },
+        ],
+    },
+    {
         id: "2024-toko-sandbox",
         year: 2024,
         month: "December",
         title: "Toko Sandbox — CI/CD‑Gated Test Environment (Shift‑Left)",
-        role: "Senior Software Engineer — Tokopedia",
+        role: "Senior Software Engineer — Tokopedia Travel",
         subtitle:
-        "Proposed and led the design of a self‑service sandbox to validate integrations early.",
+        "Proposed and led the design of a self‑service sandbox simulator which established a reliable testing environment.",
         impact:
-        "Cut integration/regression test time by ~40–50% and increased coverage ~30%, boosting release confidence.",
+        "Cut integration/regression test time by ~40–50% and increased test coverage ~30%, boosting release confidence.",
         bullets: [
-            "Provisioned ephemeral envs per PR using templates; automated seeding & contract tests.",
-            "Standardized runbooks and blameless post‑mortems to drive learning culture.",
+            "Integrated with CI/CD pipelines to enable automated integration and regression testing.",
+            "Promotes a test driven development culture by providing a self‑service testing environment.",
         ],
-        tech: ["Go", "Docker", "Kubernetes", "Argo Workflows", "OpenAPI", "GitHub Actions", "Postman"],
-        links: [
-            { label: "Design Doc (internal)", href: "#" },
-        ],
+        tech: ["Go", "Docker", "Kubernetes", "REST API", "Postgresql", "Redis", "CICD"],
+        links: [],
         images: [
             { src: "/images/projects/2024-sandbox-ephemeral.png", alt: "Ephemeral environment preview" },
             { src: "/images/projects/2024-ci-gates.png", alt: "CI gates illustration" },
@@ -46,7 +68,7 @@ const projects: Project[] = [
         year: 2020,
         month: "October",
         title: "Reliability & Observability Program",
-        role: "Software Engineer — Tokopedia",
+        role: "Software Engineer — Tokopedia Mitra",
         subtitle:
         "Introduced standardized alerting, tracing, dashboards, and SLOs across core services.",
         impact:
@@ -55,26 +77,26 @@ const projects: Project[] = [
             "Authored runbooks; implemented alert dedup & routing; taught on‑call best practices.",
             "Adopted trace sampling and RED/USE dashboards for service health visibility.",
         ],
-        tech: ["Prometheus", "Grafana", "Loki", "Tempo", "Jaeger", "SLO tooling"],
+        tech: ["NewRelic", "Grafana", "Enterprise Tools", "Go", "Ansible", "Terraform"],
         images: [
             { src: "/images/projects/2020-observability-dash.png", alt: "Unified observability dashboard" },
         ],
     },
     {
-        id: "2019-cicd",
+        id: "2019-sobat-dashboard",
         year: 2019,
-        month: "June",
-        title: "CI/CD Pipeline Modernization",
-        role: "Software Engineer — Tokopedia",
+        month: "August",
+        title: "Mitra App & Sobat Dashboard",
+        role: "Software Engineer — Tokopedia Mitra",
         subtitle:
-        "Refactored pipelines with faster caching, parallelism, and policy checks.",
+        "Development of Mitra App and Sobat Dashboard from the ground up.",
         impact:
-        "PR‑to‑prod lead time improved by ~30%; flaky steps reduced; reproducible builds ensured.",
+        "Promotes business growth year on year on Mitra App and its enterprise tools of Sobat Dashboard.",
         bullets: [
-            "Introduced standardized pipeline templates and artifact provenance.",
-            "Added preview deployments and rollout visibility per service.",
+            "Delivers Mitra App to address the problems of b2b market demands on Indonesia's independent sellers.",
+            "Delivers Sobat Dashboard as an enterprise tools for analyzing Mitra business growth.",
         ],
-        tech: ["GitHub Actions", "ArgoCD", "Container Registry", "OPA"],
+        tech: ["Go", "Docker", "GCP", "Postgres", "Redis", "NSQ"],
     },
 ];
 
@@ -182,7 +204,7 @@ function BranchCard({ project, index }: { project: Project; index: number }) {
                 </div>
             </div>
 
-            <header className="flex flex-auto items-start justify-between">
+            <header className="flex md:flex-row flex-col-reverse items-start justify-between">
                 <h3 id={`${project.id}-title`} className="text-xl sm:text-2xl font-semibold flex items-center gap-2">
                     <GitBranch className="h-5 w-5" />
                     {project.title}
@@ -216,17 +238,18 @@ function BranchCard({ project, index }: { project: Project; index: number }) {
 
             {(project.tech?.length || 0) > 0 && (
                 <div className="mt-4 flex flex-wrap items-center gap-2">
-                    {project.tech!.map((t) => (
-                        <span
-                            key={t}
-                            className="inline-flex items-center gap-1 rounded-full border border-gray-500/10 bg-blue-100/60 dark:bg-slate-900/30 px-2.5 py-1 text-xs text-slate-700 dark:text-slate-300"
-                        >
-                            {(t.toLowerCase().includes("cicd") || t.toLowerCase().includes("argo")) && <Workflow className="h-3.5 w-3.5" />}
-                            {(t.toLowerCase().includes("kubernetes") || t.toLowerCase().includes("k8")) && <Server className="h-3.5 w-3.5" />}
-                            {(t.toLowerCase().includes("slo") || t.toLowerCase().includes("opa") || t.toLowerCase().includes("security")) && <ShieldCheck className="h-3.5 w-3.5" />}
-                            {t}
-                        </span>
-                    ))}
+                    {project.tech!.map((t) => {
+                        const Icon = getTechIcon(t);
+                        return (
+                            <span
+                                key={t}
+                                className="inline-flex items-center gap-1 rounded-full border border-gray-500/10 bg-blue-100/60 dark:bg-slate-900/30 px-2.5 py-1 text-xs text-slate-700 dark:text-slate-300"
+                            >
+                              {Icon}
+                                {t}
+                            </span>
+                        );
+                    })}
                 </div>
             )}
 
