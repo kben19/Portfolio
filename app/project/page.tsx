@@ -133,11 +133,11 @@ export default async function ProjectPage() {
                     >
                         <div className="relative h-full flex flex-col items-start py-6">
                             {/* Main vertical branch */}
-                            <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-slate-500/40" />
+                            <div className="absolute left-2 top-0 bottom-0 w-[2px] bg-slate-500/40"/>
 
-                            <ol className="relative z-10 flex flex-col justify-between h-full pl-2">
+                            <ol className="relative z-10 flex flex-col justify-between h-full">
                                 {years.map((y, i) => (
-                                    <li key={y} className="relative group flex items-center">
+                                    <li key={y} className="relative group flex items-center overflow-hidden">
                                         {/* The year node */}
                                         <a
                                             href={`#year-${y}`}
@@ -158,10 +158,11 @@ export default async function ProjectPage() {
 
                     {/* Branch List */}
                     <div className="md:ml-24">
+                        <div className="md:absolute left-24 top-0 bottom-0 w-[2px] bg-slate-500/40"/>
                         {grouped.map(({ year, items }) => (
                             <div key={year} id={`year-${year}`} className="scroll-mt-28">
                                 {items.map((proj, idx) => (
-                                    <div key={proj.id}  className="ml-6 mt-6 space-y-8">
+                                    <div key={proj.id}  className="md:ml-6 md:mt-6 space-y-8">
                                         <BranchCard key={proj.id} project={proj} index={idx} />
                                     </div>
                                     )
@@ -178,13 +179,10 @@ export default async function ProjectPage() {
 function YearHeader({ year, month }: { year: number, month: string }) {
     return (
         <>
-            <div className="flex items-center gap-3">
-                <div className="h-px flex-1 bg-white/10"/>
-                <div className="flex items-center gap-2 text-sm text-gray-900 uppercase tracking-wider bg-white/10">
-                    <Calendar className="h-4 w-4"/>
-                    <span>{year}</span>
-                    <span>{month}</span>
-                </div>
+            <div className="flex items-center gap-2 text-sm text-gray-900 uppercase tracking-wider bg-white/10">
+                <Calendar className="h-4 w-4"/>
+                <span>{year}</span>
+                <span>{month}</span>
             </div>
             <div className="h-px flex-1 bg-white/10"/>
         </>
@@ -194,32 +192,32 @@ function YearHeader({ year, month }: { year: number, month: string }) {
 function BranchCard({ project, index }: { project: Project; index: number }) {
     return (
         <article
-            className="relative rounded-2xl border border-slate-500/15 bg-slate-100/60 dark:bg-slate-900/30 p-5 sm:p-6 shadow-lg backdrop-blur [--tw-shadow-color:rgba(0,0,0,0.25)]"
+            className="relative rounded-2xl border border-slate-500/15 bg-slate-100/60 p-5 sm:p-6 shadow-lg backdrop-blur [--tw-shadow-color:rgba(0,0,0,0.25)]"
             aria-labelledby={`${project.id}-title`}
         >
             {/* connector from rail to card on md+ */}
             <div className="hidden md:block absolute -left-6 top-6 w-6">
                 <div className="relative h-0.5 bg-gray/30 mt-3">
-                    <span className="absolute -left-1 -top-1 h-3 w-3 rounded-full bg-gray-500 ring-2 ring-neutral-800/40" />
+                    <span className="absolute -left-1.5 -top-1 h-3 w-3 rounded-full bg-gray-500 ring-2 ring-neutral-800/40" />
                 </div>
             </div>
 
-            <header className="flex md:flex-row flex-col-reverse items-start justify-between">
+            <header className="flex md:flex-row flex-col-reverse items-start justify-between gap-2">
                 <h3 id={`${project.id}-title`} className="text-xl sm:text-2xl font-semibold flex items-center gap-2">
                     <GitBranch className="h-5 w-5" />
                     {project.title}
                 </h3>
-                <span className="inline-flex items-center gap-1 rounded-full border border-gray-900/15 bg-white/5 px-3 py-1 text-xs text-gray-800">
+                <span className="inline-flex items-center rounded-full border border-gray-900/15 bg-white/5 px-3 py-1.5 text-xs text-gray-800">
                     <YearHeader year={project.year} month={project.month} />
                 </span>
             </header>
 
             {project.role && (
-                <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">{project.role}</p>
+                <p className="mt-2 text-sm text-slate-700">{project.role}</p>
             )}
 
             {project.subtitle && (
-                <p className="mt-3 text-slate-800 dark:text-slate-200">{project.subtitle}</p>
+                <p className="mt-3 text-slate-800">{project.subtitle}</p>
             )}
 
             {project.impact && (
@@ -229,7 +227,7 @@ function BranchCard({ project, index }: { project: Project; index: number }) {
             )}
 
             {(project.bullets?.length || 0) > 0 && (
-                <ul className="mt-4 list-disc pl-5 space-y-1 text-slate-800 dark:text-slate-200">
+                <ul className="mt-4 list-disc pl-5 space-y-1 text-slate-800">
                     {project.bullets!.map((b, i) => (
                         <li key={i}>{b}</li>
                     ))}
@@ -243,7 +241,7 @@ function BranchCard({ project, index }: { project: Project; index: number }) {
                         return (
                             <span
                                 key={t}
-                                className="inline-flex items-center gap-1 rounded-full border border-gray-500/10 bg-blue-100/60 dark:bg-slate-900/30 px-2.5 py-1 text-xs text-slate-700 dark:text-slate-300"
+                                className="inline-flex items-center gap-1 rounded-full border border-gray-500/10 bg-blue-100/60 px-2.5 py-1 text-xs text-slate-700"
                             >
                               {Icon}
                                 {t}
