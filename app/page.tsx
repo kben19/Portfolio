@@ -11,7 +11,7 @@ import AboutSection from "../components/About";
 import { insertEvent } from "../utils/lib/event";
 
 export default async function HomePage() {
-  insertEvent('/')
+  await insertEvent('/')
   return (
     <>
       <Header links={[
