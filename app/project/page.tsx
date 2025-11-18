@@ -15,7 +15,7 @@ type Project = {
     bullets?: string[];
     tech?: string[];
     links?: { label: string; href: string }[];
-    images?: { src: string; alt: string }[];
+    images?: { src: string; alt: string, width: number, height: number}[];
 };
 
 const projects: Project[] = [
@@ -38,8 +38,7 @@ const projects: Project[] = [
             { label: "Tokopedia Digital App", href: "https://www.tokopedia.com/top-up-tagihan"}
         ],
         images: [
-            { src: "/images/projects/2024-sandbox-ephemeral.png", alt: "Ephemeral environment preview" },
-            { src: "/images/projects/2024-ci-gates.png", alt: "CI gates illustration" },
+            { src: "/projects/migration.gif", alt: "Cloud Server Migration", width: 500, height: 500 },
         ],
     },
     {
@@ -59,27 +58,8 @@ const projects: Project[] = [
         tech: ["Go", "Docker", "Kubernetes", "REST API", "Postgresql", "Redis", "CICD"],
         links: [],
         images: [
-            { src: "/images/projects/2024-sandbox-ephemeral.png", alt: "Ephemeral environment preview" },
-            { src: "/images/projects/2024-ci-gates.png", alt: "CI gates illustration" },
-        ],
-    },
-    {
-        id: "2020-observability",
-        year: 2020,
-        month: "October",
-        title: "Reliability & Observability Program",
-        role: "Software Engineer — Tokopedia Mitra",
-        subtitle:
-        "Introduced standardized alerting, tracing, dashboards, and SLOs across core services.",
-        impact:
-        "Mean time to recover (MTTR) reduced by ~25% and noisy alerts dropped ~35% after hygiene.",
-        bullets: [
-            "Authored runbooks; implemented alert dedup & routing; taught on‑call best practices.",
-            "Adopted trace sampling and RED/USE dashboards for service health visibility.",
-        ],
-        tech: ["NewRelic", "Grafana", "Enterprise Tools", "Go", "Ansible", "Terraform"],
-        images: [
-            { src: "/images/projects/2020-observability-dash.png", alt: "Unified observability dashboard" },
+            { src: "/projects/sandbox-illustration.svg", alt: "Sandbox Simulator Illustration", width: 1000, height: 508 },
+            { src: "/projects/tokopedia-flight.png", alt: "Tokopedia Flight Page", width: 700, height: 621},
         ],
     },
     {
@@ -96,7 +76,10 @@ const projects: Project[] = [
             "Delivers Mitra App to address the problems of b2b market demands on Indonesia's independent sellers.",
             "Delivers Sobat Dashboard as an enterprise tools for analyzing Mitra business growth.",
         ],
-        tech: ["Go", "Docker", "GCP", "Postgres", "Redis", "NSQ"],
+        tech: ["Go", "Docker", "GCP", "Postgres", "Redis", "NSQ", "Svelte"],
+        images: [
+            { src: "/projects/mitra-page.jpeg", alt: "Mitra Tokopedia App", width: 540, height: 806 },
+        ],
     },
 ];
 
@@ -118,7 +101,7 @@ export default async function ProjectPage() {
                 { href: "/#contact", label: "Contact" },
             ]}/>
             <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12">
-                <header className="mb-10">
+                <header className="mb-10 text-center md:text-left">
                     <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Tokopedia Projects</h1>
                     <p className="mt-2 text-muted-foreground max-w-2xl">
                         A focused timeline of major initiatives I led or contributed to between 2019 and 2025.
@@ -156,9 +139,9 @@ export default async function ProjectPage() {
                         </div>
                     </aside>
 
+                    <div className="md:absolute left-28 top-0 bottom-0 w-[2px] bg-slate-500/40"/>
                     {/* Branch List */}
-                    <div className="md:ml-24">
-                        <div className="md:absolute left-24 top-0 bottom-0 w-[2px] bg-slate-500/40"/>
+                    <div className="flex flex-col md:ml-28 gap-5">
                         {grouped.map(({ year, items }) => (
                             <div key={year} id={`year-${year}`} className="scroll-mt-28">
                                 {items.map((proj, idx) => (
@@ -252,14 +235,19 @@ function BranchCard({ project, index }: { project: Project; index: number }) {
             )}
 
             {(project.images?.length || 0) > 0 && (
-                <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {project.images!.map((img, i) => (
-                        <figure key={i} className="relative overflow-hidden rounded-xl border border-white/10 bg-black/20">
+                <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
+                    {project.images!.map((img, i) => {
+                        const mdScale = 0.7;
+                        const mdRenderWidth = Math.round(img.width * mdScale);
+                        const sizes = `(max-width: 720px) 100vw, (min-width: 440px) ${mdRenderWidth}px`;
+                        return (<figure key={i}
+                                className="relative w-fit h-fit overflow-hidden content-center rounded-2xl border border-black/20 bg-white"
+                                style={{aspectRatio: `${img.width}/${img.height}`}}>
                             {/* Replace width/height with your real image sizes if available */}
-                            <Image src={img.src} alt={img.alt} width={800} height={500} className="h-full w-full object-cover" />
+                            <Image src={img.src} alt={img.alt} width={img.width * mdScale} height={img.height * mdScale} priority className="object-fill" sizes={sizes}/>
                             <figcaption className="sr-only">{img.alt}</figcaption>
-                        </figure>
-                    ))}
+                        </figure>);
+                    })}
                 </div>
             )}
 

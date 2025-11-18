@@ -11,7 +11,7 @@ import {
     MessageSquareCode
 } from "lucide-react";
 import type { ReactNode } from "react";
-import { SiAmazonwebservices, SiGo, SiGooglecloud } from "react-icons/si";
+import { SiAmazonwebservices, SiGo, SiGooglecloud, SiNginx, SiSvelte } from "react-icons/si";
 
 export function getTechIcon(techName: string): ReactNode | null {
     const key = techName.toLowerCase();
@@ -39,6 +39,7 @@ export const techIconMap: Record<string, ReactNode> = {
     "rest api": <FileBraces className="h-3 w-3"/>,
     grpc: <Braces className="h-3 w-3"/>,
     nsq: <MessageSquareCode className="h-3 w-3"/>,
+    nginx: <SiNginx className="h-3 w-3"/>,
 
     // Monitoring / observability
     prometheus: <ShieldCheck className="h-3 w-3" />,
@@ -61,4 +62,5 @@ export const techIconMap: Record<string, ReactNode> = {
     // Languages
     go: <SiGo className="h-4 w-4" />,
     golang: <SiGo className="h-4 w-4" />,
+    svelte: <SiSvelte className="h-3 w-3" />,
 };
