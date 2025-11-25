@@ -9,6 +9,7 @@ import bytedanceLogo from "../public/ByteDance_Logo.png";
 import { SiGithub, SiLinkedin, SiMedium } from "react-icons/si";
 import AboutSection from "../components/About";
 import { insertEvent } from "../utils/lib/event";
+import TextType from '../components/TextType';
 
 export default async function HomePage() {
   await insertEvent('/')
@@ -34,13 +35,15 @@ export default async function HomePage() {
             Kelvin Benzali
           </h1>
 
-          <div className="space-y-3 text-gray-600">
-            <p>
-              Building biggest Indonesia e-commerce industry for over 6 years.
-            </p>
-            <p>
-              Specializing in scalable microservices serving millions of users.
-            </p>
+          <div className="text-gray-600">
+              <TextType
+                  text={["Building one of biggest Indonesia e-commerce industry for over 6 years.\n\nSpecializing in scalable microservices serving millions of users."]}
+                  typingSpeed={20}
+                  showCursor={true}
+                  cursorCharacter="|"
+                  loop={false}
+                  pauseDuration={500}
+              />
           </div>
           <div className="pt-4">
             <SocialLinks links={[

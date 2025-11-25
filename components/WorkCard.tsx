@@ -38,7 +38,7 @@ export default function WorkCard({
             )}
 
             {/* Content */}
-            <div className="relative z-10 flex h-[20rem] items-center justify-center p-8 md:h-[24rem] lg:h-[30rem]">
+            <div className="relative z-10 flex h-[20rem] items-center justify-center p-8 md:h-[26rem] lg:h-[36rem]">
                 <div className="text-center">
                     {/* ===== ICON ===== */}
                     <div className="mb-4 gap-2 flex items-center justify-center transition-transform duration-300 ease-out group-hover:scale-[1.15]">

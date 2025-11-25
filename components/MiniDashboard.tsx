@@ -26,6 +26,7 @@ import {
     SiInstagram,
     SiGmail,
     SiVercel,
+    SiLinkedin,
 } from 'react-icons/si';
 import { FaEdge, FaWindows } from "react-icons/fa";
 import { BiLogoBing } from "react-icons/bi";
@@ -57,6 +58,7 @@ const referrerIconMap: Record<string, React.ReactNode> = {
     "l.instagram.com": <SiInstagram className="h-4 w-4" />,
     "mail.google.com": <SiGmail className="h-4 w-4" />,
     "vercel.com": <SiVercel className="h-4 w-4" />,
+    "linkedin.com": <SiLinkedin className="h-4 w-4" />,
 }
 
 type CountryRow = { code: string; name: string; visitors: number };

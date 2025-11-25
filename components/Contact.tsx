@@ -25,7 +25,7 @@ export default function ContactSection({ email, blurb, name, location, photoSrc 
 
             <div className="relative z-10 grid md:grid-cols-2 items-stretch">
                 {/* Left panel */}
-                <div className="h-full bg-slate-800 p-10 text-slate-100 sm:p-12 md:p-14 lg:p-20 flex flex-col">
+                <div className="h-full bg-slate-800 p-10 text-slate-100 sm:p-12 md:p-14 lg:p-20 flex flex-col justify-center">
                     <div className="space-y-6">
                         <div>
                             <Link
@@ -68,7 +68,7 @@ export default function ContactSection({ email, blurb, name, location, photoSrc 
                 </div>
 
                 {/* Right photo */}
-                <div className="relative h-full w-full overflow-hidden min-h-[22rem] md:min-h-[26rem] lg:min-h-[28rem]">
+                <div className="relative h-full w-full overflow-hidden min-h-[26rem] md:min-h-[32rem] lg:min-h-[40rem]">
                     <Image
                         src={photoSrc}
                         alt="Contact / profile"
