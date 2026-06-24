@@ -18,20 +18,21 @@ export default async function AboutSection() {
     // make a YYYY-MM-DD string for 7 days ago
     const today = new Date();
     const endPrevious = new Date();
-    endPrevious.setDate(endPrevious.getDate() - 32);
+    endPrevious.setMonth(endPrevious.getMonth() - 1);
+    endPrevious.setDate(endPrevious.getDate() - 1);
     const endPreviousStr = endPrevious.toISOString().slice(0,10);
     const end = today.toISOString().slice(0, 10);
     const oneMonthAgo = new Date();
-    oneMonthAgo.setDate(oneMonthAgo.getDate() - 31);
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
     const startMonthAgo = oneMonthAgo.toISOString().slice(0, 10);
     const twoMonthAgo = new Date();
-    twoMonthAgo.setDate(twoMonthAgo.getDate() - 62)
+    twoMonthAgo.setMonth(twoMonthAgo.getMonth() - 2)
     const startTwoMonthAgo = twoMonthAgo.toISOString().slice(0, 10);
 
     const [pvNow, pvPrev, uNow, uPrev, byCountry, byDevice, byBrowser, byOS, byReferrer] = await Promise.all([
-        supabase.from('traffic_events').select('id', { count: 'exact', head: true }).gte('date_key', oneMonthAgo).lte('date_key', end),
-        supabase.from('traffic_events').select('id', { count: 'exact', head: true }).gte('date_key', startTwoMonthAgo).lte('date_key', endPreviousStr),
-        supabase.rpc('count_unique_visitors', { start_date: oneMonthAgo, end_date: end }),
+        supabase.rpc('count_page_views', { start_date: startMonthAgo, end_date: end }),
+        supabase.rpc('count_page_views', { start_date: startTwoMonthAgo, end_date: endPreviousStr }),
+        supabase.rpc('count_unique_visitors', { start_date: startMonthAgo, end_date: end }),
         supabase.rpc('count_unique_visitors', { start_date: startTwoMonthAgo, end_date: endPreviousStr }),
         supabase.rpc('count_events_by_country_range', { start_date: startMonthAgo, end_date: end }),
         supabase.rpc('count_events_by_device_range', { start_date: startMonthAgo, end_date: end }),
@@ -40,8 +41,8 @@ export default async function AboutSection() {
         supabase.rpc('count_events_by_referrer_range', { start_date: startMonthAgo, end_date: end }),
     ]);
 
-    const pageViews = Number(pvNow.count ?? 0);
-    const pageViewsPrev = Number(pvPrev.count ?? 0);
+    const pageViews = Number(pvNow.data ?? 0);
+    const pageViewsPrev = Number(pvPrev.data ?? 0);
     const uniqueNow = Number(uNow.data ?? 0);
     const uniquePrev = Number(uPrev.data ?? 0);
     const countries = rowsToCountriesProp(byCountry.data ?? []);
