@@ -37,7 +37,7 @@ export default async function HomePage() {
 
           <div className="text-gray-600">
               <TextType
-                  text={["Building one of biggest Indonesia e-commerce industry for over 6 years.\n\nSpecializing in scalable microservices serving millions of users."]}
+                  text={["Building one of biggest Indonesia e-commerce industry for over 7 years.\n\nSpecializing in scalable microservices serving millions of users."]}
                   typingSpeed={20}
                   showCursor={true}
                   cursorCharacter="|"

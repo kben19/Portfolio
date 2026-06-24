@@ -16,26 +16,23 @@ function pctChange(curr?: number | null, prev?: number | null) {
 export default async function AboutSection() {
     const supabase = createServerComponentClient()
     // make a YYYY-MM-DD string for 7 days ago
-    const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
     const today = new Date();
-    const startPrevious = new Date();
-    startPrevious.setDate(startPrevious.getDate() - 15);
-    const startPreviousStr = startPrevious.toISOString().slice(0,10);
-    const start = sevenDaysAgo.toISOString().slice(0, 10);
     const endPrevious = new Date();
-    endPrevious.setDate(endPrevious.getDate() - 8);
+    endPrevious.setDate(endPrevious.getDate() - 32);
     const endPreviousStr = endPrevious.toISOString().slice(0,10);
     const end = today.toISOString().slice(0, 10);
     const oneMonthAgo = new Date();
     oneMonthAgo.setDate(oneMonthAgo.getDate() - 31);
     const startMonthAgo = oneMonthAgo.toISOString().slice(0, 10);
+    const twoMonthAgo = new Date();
+    twoMonthAgo.setDate(twoMonthAgo.getDate() - 62)
+    const startTwoMonthAgo = twoMonthAgo.toISOString().slice(0, 10);
 
     const [pvNow, pvPrev, uNow, uPrev, byCountry, byDevice, byBrowser, byOS, byReferrer] = await Promise.all([
-        supabase.from('traffic_events').select('id', { count: 'exact', head: true }).gte('date_key', start).lte('date_key', end),
-        supabase.from('traffic_events').select('id', { count: 'exact', head: true }).gte('date_key', startPreviousStr).lte('date_key', endPreviousStr),
-        supabase.rpc('count_unique_visitors', { start_date: start, end_date: end }),
-        supabase.rpc('count_unique_visitors', { start_date: startPreviousStr, end_date: endPreviousStr }),
+        supabase.from('traffic_events').select('id', { count: 'exact', head: true }).gte('date_key', oneMonthAgo).lte('date_key', end),
+        supabase.from('traffic_events').select('id', { count: 'exact', head: true }).gte('date_key', startTwoMonthAgo).lte('date_key', endPreviousStr),
+        supabase.rpc('count_unique_visitors', { start_date: oneMonthAgo, end_date: end }),
+        supabase.rpc('count_unique_visitors', { start_date: startTwoMonthAgo, end_date: endPreviousStr }),
         supabase.rpc('count_events_by_country_range', { start_date: startMonthAgo, end_date: end }),
         supabase.rpc('count_events_by_device_range', { start_date: startMonthAgo, end_date: end }),
         supabase.rpc('count_events_by_browser_range', { start_date: startMonthAgo, end_date: end }),

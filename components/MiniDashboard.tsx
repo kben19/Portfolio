@@ -311,7 +311,7 @@ export default function MiniDashboardTabs({
                                     value={card.value}
                                     delta={card.delta}
                                     deltaTone={card.deltaTone}
-                                    helpText="Last 7 days"
+                                    helpText="Last 31 days"
                                 />
                             ))}
                         </div>
