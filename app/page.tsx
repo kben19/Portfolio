@@ -10,6 +10,7 @@ import { SiGithub, SiLinkedin, SiMedium } from "react-icons/si";
 import AboutSection from "../components/About";
 import { insertEvent } from "../utils/lib/event";
 import TextType from '../components/TextType';
+import LuminNovel from "../components/LuminNovel";
 
 export default async function HomePage() {
   await insertEvent('/')
@@ -18,6 +19,7 @@ export default async function HomePage() {
       <Header links={[
           { href: "#about", label: "About" },
           { href: "#work", label: "Work" },
+          { href: "#freelance", label: "Project" },
           { href: "#contact", label: "Contact" },
       ]}/>
       <section
@@ -141,6 +143,8 @@ export default async function HomePage() {
           />
         </div>
       </section>
+
+      <LuminNovel />
 
       <Contact
         email="kevinesia@gmail.com"

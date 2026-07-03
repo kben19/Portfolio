@@ -98,6 +98,7 @@ export default async function ProjectPage() {
                 { href: "/", label: "Home" },
                 { href: "/#about", label: "About" },
                 { href: "/#work", label: "Work" },
+                { href: "/#freelance", label: "Project" },
                 { href: "/#contact", label: "Contact" },
             ]}/>
             <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12">
