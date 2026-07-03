@@ -1,0 +1,47 @@
+/* ==========================================================================
+   Kelvin Benzali — Portfolio | Spacing, radius, shadow, layout tokens
+   ========================================================================== */
+
+:root {
+  /* ---- Spacing scale (Tailwind default, as used) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-32: 8rem;
+  --space-36: 9rem;
+
+  /* Section vertical rhythm — every major section uses one of these two */
+  --section-py: 5rem;        /* py-20 */
+  --section-py-lg: 8rem;     /* md:py-32 */
+
+  /* Page container: fluid max-width, not a fixed breakpoint value */
+  --container-max: clamp(72rem, 86vw, 110rem); /* @kind spacing */
+  --container-px: 1.5rem;    /* px-6 */
+
+  /* ---- Corner radii ---- */
+  --radius-md: 0.5rem;    /* inputs, small chips (rounded-md) */
+  --radius-lg: 0.75rem;   /* React on rare inline links (rounded-lg) */
+  --radius-xl: 1rem;      /* pill-ish tags (rounded-xl on some rows) */
+  --radius-2xl: 1rem;     /* Button, hero photo frame, timeline card (rounded-2xl) */
+  --radius-full: 9999px;  /* pills, avatars, the reveal-bar text, dots */
+
+  /* ---- Shadows ---- */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+  --shadow-button-hover: 0 4px 14px rgb(0 0 0 / 0.10);
+  --shadow-card-lg: 0 10px 30px rgb(0 0 0 / 0.25); /* timeline card: shadow-lg + custom shadow color */
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --duration-fast: 150ms;   /* @kind other */
+  --duration-base: 300ms;   /* @kind other */
+  --duration-slow: 700ms;   /* @kind other */
+}

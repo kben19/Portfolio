@@ -1,0 +1,79 @@
+/* ==========================================================================
+   Kelvin Benzali — Portfolio | Color tokens
+   Source: tailwind.config.js + utility classes used across app/, components/
+   Palette is stock Tailwind (slate / emerald / sky / gray) — this portfolio
+   leans on Tailwind's default scales rather than a custom palette. The one
+   custom token (`--color-brand`) is declared in tailwind.config.js but is
+   NOT actually used anywhere in the app — emerald is the real accent in
+   practice. Both are kept here; emerald is what you should reach for.
+   ========================================================================== */
+
+:root {
+  /* ---- Base neutrals (Tailwind gray/slate scales, as used) ---- */
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-900: #111827;
+
+  --slate-100: #f1f5f9;
+  --slate-300: #cbd5e1;
+  --slate-500: #64748b;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+
+  /* ---- Accent: emerald — the real accent color of the site ---- */
+  --emerald-100: #d1fae5;
+  --emerald-400: #34d399;
+  --emerald-500: #10b981;
+  --emerald-700: #047857;
+
+  /* ---- Secondary accent: sky — used for the ByteDance work panel ---- */
+  --sky-100: #e0f2fe;
+  --sky-500: #0ea5e9;
+
+  /* ---- Rose — used once, for "impact" highlight words in About copy ---- */
+  --rose-400: #fb7185;
+
+  /* ---- Declared-but-unused brand token (tailwind.config.js `brand`) ---- */
+  --color-brand: #0ea5e9;
+  --color-brand-dark: #0284c7;
+
+  /* ---- Deep navy — bespoke one-off for the About/dashboard section ---- */
+  --navy-about: #0f1b2a;
+
+  /* ======================= Semantic aliases ======================= */
+  --bg-page: #ffffff;
+  --bg-subtle: var(--gray-50);
+  --bg-dark-panel: var(--slate-800);      /* Contact section left panel */
+  --bg-navy-panel: var(--navy-about);     /* About section */
+  --bg-card-mint: var(--emerald-100);     /* Tokopedia work card */
+  --bg-card-sky: var(--sky-100);          /* ByteDance work card */
+  --bg-card-neutral: rgb(241 245 249 / 0.6); /* timeline branch card */
+
+  --text-primary: var(--gray-900);
+  --text-secondary: var(--gray-700);
+  --text-muted: var(--gray-500);
+  --text-faint: var(--gray-400);
+  --text-on-dark: #f1f5f9;
+  --text-on-dark-muted: rgb(241 245 249 / 0.8);
+
+  --accent: var(--emerald-500);
+  --accent-hover: var(--emerald-400);
+  --accent-strong: var(--emerald-700);
+
+  --border-default: var(--gray-200);
+  --border-soft: rgb(100 116 139 / 0.15);   /* slate-500/15 */
+  --border-on-dark: rgb(255 255 255 / 0.1);
+
+  --tone-good-bg: var(--emerald-100);
+  --tone-good-fg: var(--emerald-700);
+  --tone-bad-bg: #ffe4e6;
+  --tone-bad-fg: #be123c;
+  --tone-neutral-bg: var(--slate-100);
+  --tone-neutral-fg: var(--slate-700);
+}

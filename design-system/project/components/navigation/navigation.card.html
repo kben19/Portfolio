@@ -1,0 +1,21 @@
+<!-- @dsCard group="Components" viewport="700x140" name="Navigation" subtitle="Header — right-aligned nav links" -->
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--bg-page)}</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { Header } = window.KelvinBenzaliPortfolioDesignSystem_72cc70;
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <Header links={[{href:"#about",label:"About"},{href:"#work",label:"Work"},{href:"#contact",label:"Contact"}]} />
+);
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!-- @dsCard group="Components" viewport="700x360" name="Cards" subtitle="WorkCard, ProjectTimelineCard" -->
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--bg-page)}</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { WorkCard, ProjectTimelineCard } = window.KelvinBenzaliPortfolioDesignSystem_72cc70;
+
+function Demo() {
+  return (
+    <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:0}}>
+      <WorkCard title="Tokopedia" bgColor="var(--bg-card-mint)" height={220}
+        logo={<span style={{fontFamily:"var(--font-sans)", fontWeight:700, fontSize:22}}>tokopedia</span>}
+        subtitle={<>Senior Software Engineer, Tokopedia Digital.</>} />
+      <WorkCard title="ByteDance" bgColor="var(--bg-card-sky)" height={220}
+        logo={<span style={{fontFamily:"var(--font-sans)", fontWeight:700, fontSize:20}}>ByteDance</span>}
+        subtitle={<>Led migration to ByteDance Cloud.</>} />
+      <div style={{gridColumn:"1 / -1", padding:20, background:"var(--bg-subtle)"}}>
+        <ProjectTimelineCard project={{
+          title: "Cloud Migration", role: "Senior Software Engineer — Tokopedia Digital",
+          year: 2025, month: "March",
+          subtitle: "Led the migration to ByteDance Cloud platform.",
+          impact: "Reduced ~20% infrastructure cost while maintaining SLOs.",
+          tech: ["Go","Docker","Kubernetes","GCP"],
+        }} />
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!-- @dsCard group="Components" viewport="700x420" name="Core" subtitle="Icon, Button, SocialLinks, TechBadge, TextType" -->
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--bg-page);font-family:var(--font-sans)}</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { Icon, Button, SocialLinks, TechBadge, TextType } = window.KelvinBenzaliPortfolioDesignSystem_72cc70;
+
+function Demo() {
+  return (
+    <div style={{padding:20, display:"flex", flexDirection:"column", gap:16}}>
+      <div style={{display:"flex", gap:14, alignItems:"center", color:"var(--text-secondary)"}}>
+        <Icon name="calendar" /><Icon name="git-branch" /><Icon name="external-link" />
+        <Icon name="monitor" /><Icon name="users" /><Icon name="github" set="brand" />
+        <Icon name="linkedin" set="brand" /><Icon name="medium" set="brand" />
+      </div>
+      <div style={{display:"flex", gap:12, alignItems:"center"}}>
+        <Button>Sign in</Button>
+        <Button disabled>Signing in…</Button>
+        <TechBadge label="Go" /><TechBadge label="Kubernetes" /><TechBadge label="Redis" />
+      </div>
+      <SocialLinks links={[
+        {icon:"github", url:"#", label:"GitHub"},
+        {icon:"linkedin", url:"#", label:"LinkedIn"},
+        {icon:"medium", url:"#", label:"Medium"},
+      ]} />
+      <div style={{color:"var(--text-secondary)", fontSize:18}}>
+        <TextType text={["Building for scale, one service at a time."]} typingSpeed={28} />
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>
