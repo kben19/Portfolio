@@ -162,30 +162,30 @@ function LNDetail() {
   return (
     <div className="flex h-full flex-col bg-[#faf7f2]">
       <LNStoreHeader compact />
-      <div className="grid flex-1 grid-cols-1 items-center gap-5 overflow-hidden px-5 py-4 sm:grid-cols-[auto_1fr] sm:gap-6 sm:px-6">
-        <div className="relative mx-auto aspect-[0.71] w-24 shrink-0 overflow-hidden rounded-lg shadow-[0_10px_26px_rgba(28,25,23,0.22)] sm:mx-0 sm:w-[170px]">
+      <div className="grid flex-1 grid-cols-[auto_1fr] items-center gap-3 overflow-hidden px-4 py-3 sm:gap-6 sm:px-6 sm:py-4">
+        <div className="relative aspect-[0.71] w-16 shrink-0 overflow-hidden rounded-lg shadow-[0_10px_26px_rgba(28,25,23,0.22)] sm:w-[170px]">
           <Image src={p.img} alt={p.title} fill sizes="170px" className="object-cover" />
         </div>
-        <div className="flex min-w-0 flex-col gap-2 sm:gap-2.5">
-          <span className="text-[10px] text-[#71717a]">Light Novels › 7th Time Loop</span>
-          <span className="text-base font-bold leading-tight text-[#18181b] sm:text-xl">
+        <div className="flex min-w-0 flex-col gap-1 sm:gap-2.5">
+          <span className="hidden text-[10px] text-[#71717a] sm:block">Light Novels › 7th Time Loop</span>
+          <span className="text-xs font-bold leading-tight text-[#18181b] sm:text-xl">
             7th Time Loop: The Villainess Enjoys a Carefree Life — Vol. 3
           </span>
-          <div className="flex items-center gap-2">
-            <span className={`rounded-full px-2.5 py-1 text-[9px] font-semibold ${PILL_STYLES[p.tag]}`}>{p.tag}</span>
-            <span className={`flex items-center gap-1 text-[10px] ${STOCK_STYLES[p.stock].text}`}>
-              <span className={`h-1.5 w-1.5 rounded-full ${STOCK_STYLES[p.stock].dot}`} />
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className={`rounded-full px-1.5 py-0.5 text-[7px] font-semibold sm:px-2.5 sm:py-1 sm:text-[9px] ${PILL_STYLES[p.tag]}`}>{p.tag}</span>
+            <span className={`flex items-center gap-1 text-[8px] sm:text-[10px] ${STOCK_STYLES[p.stock].text}`}>
+              <span className={`h-1 w-1 rounded-full sm:h-1.5 sm:w-1.5 ${STOCK_STYLES[p.stock].dot}`} />
               {p.stock}
             </span>
           </div>
-          <span className="text-xl font-extrabold text-[#18181b] sm:text-2xl">{p.price}</span>
-          <div className="mt-1 flex items-center gap-2.5">
-            <div className="flex items-center overflow-hidden rounded-lg border border-[#e0d9cf] bg-white">
-              <span className="px-2.5 py-1.5 text-[#71717a]">–</span>
-              <span className="border-x border-[#e0d9cf] px-3 py-1.5 text-[13px] font-semibold text-[#18181b]">1</span>
-              <span className="px-2.5 py-1.5 text-[#71717a]">+</span>
+          <span className="text-sm font-extrabold text-[#18181b] sm:text-2xl">{p.price}</span>
+          <div className="mt-0.5 flex items-center gap-1.5 sm:mt-1 sm:gap-2.5">
+            <div className="flex items-center overflow-hidden rounded-md border border-[#e0d9cf] bg-white sm:rounded-lg">
+              <span className="px-1.5 py-0.5 text-[10px] text-[#71717a] sm:px-2.5 sm:py-1.5 sm:text-base">–</span>
+              <span className="border-x border-[#e0d9cf] px-2 py-0.5 text-[10px] font-semibold text-[#18181b] sm:px-3 sm:py-1.5 sm:text-[13px]">1</span>
+              <span className="px-1.5 py-0.5 text-[10px] text-[#71717a] sm:px-2.5 sm:py-1.5 sm:text-base">+</span>
             </div>
-            <span className="rounded-lg bg-[#18181b] px-5 py-2 text-[13px] font-semibold text-white">Add to Cart</span>
+            <span className="rounded-md bg-[#18181b] px-2.5 py-1 text-[9px] font-semibold text-white sm:rounded-lg sm:px-5 sm:py-2 sm:text-[13px]">Add to Cart</span>
           </div>
           <span className="mt-0.5 hidden text-[10px] text-[#71717a] sm:block">
             12 sold · Ships from Jakarta · Preorder closes in 6 days

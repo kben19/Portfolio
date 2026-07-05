@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Header from "../../components/Header";
 import ProjectTimelineCard, { Project } from "../../components/ProjectTimelineCard";
+import SocialLinks from "../../components/SocialLink";
+import { SiGithub, SiLinkedin, SiMedium } from "react-icons/si";
 import { insertEvent } from "../../utils/lib/event";
 
 const projects: Project[] = [
@@ -117,7 +119,7 @@ export default async function ProjectPage() {
                 <header className="mb-14">
                     <Link
                         href="/"
-                        className="text-base font-medium text-gray-600 transition duration-300 hover:text-emerald-600"
+                        className="hidden text-base font-medium text-gray-600 transition duration-300 hover:text-emerald-600 sm:inline-block"
                     >
                         ← Back home
                     </Link>
@@ -172,6 +174,37 @@ export default async function ProjectPage() {
                     })}
                 </div>
             </main>
+
+            {/* === Footer Section === */}
+            <footer className="border-t bg-gray-50 py-8">
+                <div className="container-max flex flex-col items-center gap-6 text-center">
+                    <p className="max-w-xl text-sm leading-relaxed text-gray-400">
+                        Loosely designed in <span className="transition hover:text-emerald-400"><strong>Figma</strong></span> and coded in
+                        <span className="transition hover:text-emerald-400"><strong> IntelliJ IDEA</strong></span>. Built with
+                        <span className="transition hover:text-emerald-400"><strong> Next.js</strong></span> and <span className="transition hover:text-emerald-400"><strong>Tailwind CSS</strong></span>, deployed with
+                        <span className="transition hover:text-emerald-400"><strong> Vercel</strong></span> and powered by<strong> Supabase</strong>. All text is set in the <span className="transition hover:text-emerald-400"><strong>Plus Jakarta Sans</strong></span> typeface.
+                    </p>
+                    <div className="pt-4">
+                        <SocialLinks links={[
+                            {
+                                url: "https://github.com/kben19",
+                                label: "GitHub",
+                                icon: <SiGithub size={22} />,
+                            },
+                            {
+                                url: "https://www.linkedin.com/in/kelvin-benzali/",
+                                label: "LinkedIn",
+                                icon: <SiLinkedin size={22} />,
+                            },
+                            {
+                                url: "https://medium.com/@kevinesia",
+                                label: "Medium",
+                                icon: <SiMedium size={22}/>,
+                            },
+                        ]} />
+                    </div>
+                </div>
+            </footer>
         </div>
     );
 }

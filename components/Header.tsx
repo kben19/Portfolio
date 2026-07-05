@@ -18,7 +18,9 @@ export default function Header({ links, sticky = false }: Props) {
         <nav className="flex justify-center">
           <ul className="flex gap-8 text-base font-semibold text-gray-700">
             {links.map((l) => (
-              <li key={l.href}>
+              // The "Home" link (href="/") is redundant on narrow screens where every
+              // page is a tap away anyway, and 5 items crowd the nav — hide just that one.
+              <li key={l.href} className={l.href === "/" ? "hidden sm:block" : undefined}>
                 <Link
                   href={l.href}
                   className="underline-offset-4 hover:underline focus:underline focus:outline-none"
