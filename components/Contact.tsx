@@ -14,7 +14,7 @@ type Props = {
 
 export default function ContactSection({ email, blurb, name, location, photoSrc }: Props) {
     return (
-        <section id="contact" className="relative py-20 md:py-32 lg:py-40">
+        <section id="contact" className="relative overflow-x-hidden py-20 md:py-32 lg:py-40">
             {/* Oversized heading */}
             <h2
                 aria-hidden
@@ -23,9 +23,9 @@ export default function ContactSection({ email, blurb, name, location, photoSrc 
                 Say hi.
             </h2>
 
-            <div className="relative z-10 grid md:grid-cols-2 items-stretch">
+            <div className="relative z-10 grid min-w-0 md:grid-cols-2 items-stretch">
                 {/* Left panel */}
-                <div className="h-full bg-slate-800 p-10 text-slate-100 sm:p-12 md:p-14 lg:p-20 flex flex-col justify-center">
+                <div className="h-full min-w-0 bg-slate-800 p-10 text-slate-100 sm:p-12 md:p-14 lg:p-20 flex flex-col justify-center">
                     <div className="space-y-6">
                         <div>
                             <Link

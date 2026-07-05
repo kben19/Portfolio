@@ -95,9 +95,9 @@ export default async function AboutSection() {
 
     return (
         <section id="about" className="w-full bg-[#0f1b2a] text-white">
-            <div className="container-max py-12 md:py-20 lg:py-36 grid gap-8 md:grid-cols-[5.5fr_4.5fr]">
+            <div className="container-max py-12 md:py-20 lg:py-36 grid min-w-0 gap-8 md:grid-cols-[5.5fr_4.5fr]">
                 {/* 70:30 layout – stacks on mobile */}
-                <div className="content-center">
+                <div className="min-w-0 content-center">
                     <h2 className="mb-6 text-3xl sm:text-3xl md:text-4xl lg:text-6xl font-bold tracking-tight">
                         About Me:
                     </h2>
@@ -118,7 +118,7 @@ export default async function AboutSection() {
                     </div>
                 </div>
                 {/* Right: reserved mini-dashboard area */}
-                <div>
+                <div className="min-w-0">
                     <DashboardPanel
                         visitors={[
                             {

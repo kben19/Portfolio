@@ -25,11 +25,11 @@ const TONE_TEXT: Record<MetricCardTone, string> = {
 export default function MetricCard({ label, value, delta, deltaTone = "good", helpText }: Props) {
     return (
         <div className="rounded-xl border border-white/[0.08] bg-[#1c2f4d]">
-            <div className="flex flex-col gap-2 p-4">
+            <div className="flex flex-col md:gap-1 p-4">
                 <span className="text-m font-medium text-white/60">{label}</span>
                 <span className="text-2xl font-bold tracking-tight text-white">{value}</span>
                 {(delta || helpText) && (
-                    <span className="text-xs mt-1">
+                    <span className="text-xs lg:mt-1">
                         {delta && <span className={`font-semibold ${TONE_TEXT[deltaTone]}`}>{delta}</span>}
                         {delta && helpText ? " " : null}
                         {helpText && <span className="text-white/45">{helpText}</span>}

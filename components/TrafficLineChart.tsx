@@ -21,7 +21,7 @@ type Props = {
 };
 
 const W = 320;
-const H = 160;
+const H = 180;
 const PAD_L = 22;
 const PAD_T = 10;
 const PAD_B = 18;

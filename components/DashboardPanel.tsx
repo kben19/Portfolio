@@ -314,24 +314,24 @@ export default function DashboardPanel({
 
             {/* Panels */}
             {tab === 'visitors' && (
-                // Metric tiles form a fixed-width left column, chart fills the rest —
-                // flex-wrap (no breakpoints) drops the chart below the tiles on its
-                // own if the column gets too narrow to fit both side by side.
-                <div className="flex flex-wrap items-stretch gap-3">
-                    <div className="flex w-40 shrink-0 flex-col gap-3">
+                // Mobile: metric tiles side by side in one row, chart below.
+                // sm+: tiles become a fixed-width left column, chart fills the rest.
+                <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-stretch">
+                    <div className="flex min-w-0 gap-3 sm:w-40 sm:shrink-0 sm:flex-col">
                         {visitors.map((card, i) => (
-                            <MetricCard
-                                key={i}
-                                label={card.label}
-                                value={card.value}
-                                delta={card.delta}
-                                deltaTone={card.deltaTone}
-                                helpText="Last 31 days"
-                            />
+                            <div key={i} className="min-w-0 flex-1">
+                                <MetricCard
+                                    label={card.label}
+                                    value={card.value}
+                                    delta={card.delta}
+                                    deltaTone={card.deltaTone}
+                                    helpText="Last 31 days"
+                                />
+                            </div>
                         ))}
                     </div>
                     {series && (
-                        <div className="min-w-[180px] flex-1">
+                        <div className="min-w-0 flex-1">
                             <TrafficLineChart
                                 dates={series.dates}
                                 series={[
