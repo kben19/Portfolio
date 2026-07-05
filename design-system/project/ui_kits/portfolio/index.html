@@ -22,7 +22,8 @@
 <script type="text/babel" src="ProjectScreen.jsx"></script>
 <script type="text/babel">
 function App() {
-  const [screen, setScreen] = React.useState("home");
+  const initial = new URLSearchParams(window.location.search).get("screen") || "home";
+  const [screen, setScreen] = React.useState(initial);
   React.useEffect(() => { window.scrollTo(0, 0); }, [screen]);
   if (typeof HomeScreen === "undefined" || typeof ProjectScreen === "undefined") return null;
   return screen === "home"

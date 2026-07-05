@@ -23,13 +23,20 @@ function Demo() {
       <WorkCard title="ByteDance" bgColor="var(--bg-card-sky)" height={220}
         logo={<span style={{fontFamily:"var(--font-sans)", fontWeight:700, fontSize:20}}>ByteDance</span>}
         subtitle={<>Led migration to ByteDance Cloud.</>} />
-      <div style={{gridColumn:"1 / -1", padding:20, background:"var(--bg-subtle)"}}>
+      <div style={{gridColumn:"1 / -1", padding:20, background:"var(--bg-page)"}}>
         <ProjectTimelineCard project={{
           title: "Cloud Migration", role: "Senior Software Engineer — Tokopedia Digital",
           year: 2025, month: "March",
           subtitle: "Led the migration to ByteDance Cloud platform.",
-          impact: "Reduced ~20% infrastructure cost while maintaining SLOs.",
-          tech: ["Go","Docker","Kubernetes","GCP"],
+          status: { label: "Successful Migration" },
+          metrics: [
+            { value: "20%", label: "Infrastructure Cost Reduction" },
+            { value: "SLOs", label: "Stability & SLOs Maintained" },
+          ],
+          techGroups: [
+            { category: "Infrastructure & Cloud", items: ["GCP", "Docker", "Kubernetes"] },
+            { category: "Database", items: ["PostgreSQL"] },
+          ],
         }} />
       </div>
     </div>

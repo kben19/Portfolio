@@ -1,7 +1,13 @@
 function ProjectScreen({ onNavigate }) {
-  const { Header, ProjectTimelineCard, Icon } = window.KelvinBenzaliPortfolioDesignSystem_72cc70;
+  const { Header, ProjectTimelineCard } = window.KelvinBenzaliPortfolioDesignSystem_72cc70;
   const { projects } = window.PORTFOLIO_DATA;
-  const years = Array.from(new Set(projects.map((p) => p.year))).sort((a, b) => b - a);
+
+  const RAIL_WIDTH = 64;
+  const DOT_SIZE = 10;
+  const ROW_GAP = 40; // must match the flex column gap below (2.5rem)
+  const LABEL_SLOT = 22;
+  const LABEL_GAP = 6;
+  const dotCenterY = LABEL_SLOT + LABEL_GAP + DOT_SIZE / 2;
 
   return (
     <div style={{ fontFamily: "var(--font-sans)", background: "var(--bg-page)", color: "var(--text-primary)", minHeight: "100%" }}>
@@ -10,11 +16,12 @@ function ProjectScreen({ onNavigate }) {
           { href: "#", label: "Home" },
           { href: "#about", label: "About" },
           { href: "#work", label: "Work" },
+          { href: "#project", label: "Project" },
           { href: "#contact", label: "Contact" },
         ]}
       />
-      <main style={{ maxWidth: 1152, margin: "0 auto", padding: "1rem 1.5rem 4rem", boxSizing: "border-box" }}>
-        <header style={{ marginBottom: "2.5rem" }}>
+      <main style={{ maxWidth: "var(--container-max)", margin: "0 auto", padding: "1rem var(--container-px) 6rem", boxSizing: "border-box" }}>
+        <header style={{ marginBottom: "3.5rem" }}>
           <a
             href="#"
             onClick={(e) => { e.preventDefault(); onNavigate("home"); }}
@@ -30,23 +37,42 @@ function ProjectScreen({ onNavigate }) {
           </p>
         </header>
 
-        <div style={{ display: "grid", gridTemplateColumns: "72px 1fr", gap: "1.5rem" }}>
-          {/* Year rail */}
-          <div style={{ position: "sticky", top: 24, alignSelf: "start", display: "flex", flexDirection: "column", gap: "3rem", paddingTop: "0.5rem" }}>
-            {years.map((y) => (
-              <div key={y} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <span style={{ width: 14, height: 14, borderRadius: "50%", background: "var(--slate-700)" }} />
-                <span style={{ fontSize: "var(--text-lg)", fontWeight: "var(--weight-semibold)", color: "var(--slate-700)" }}>{y}</span>
-              </div>
-            ))}
-          </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: `${ROW_GAP}px` }}>
+          {projects.map((p, i) => {
+            const showYear = i === 0 || projects[i - 1].year !== p.year;
+            const isLast = i === projects.length - 1;
+            return (
+              <div key={p.id} style={{ display: "grid", gridTemplateColumns: `${RAIL_WIDTH}px 1fr`, gap: "1.5rem" }}>
+                <div style={{ position: "relative" }}>
+                  {!isLast && (
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: dotCenterY,
+                        left: RAIL_WIDTH / 2 - 0.5,
+                        width: 1,
+                        height: `calc(100% - ${dotCenterY}px + ${ROW_GAP}px)`,
+                        background: "var(--border-soft)",
+                        zIndex: 0,
+                      }}
+                    />
+                  )}
+                  <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <div style={{ height: LABEL_SLOT, display: "flex", alignItems: "center" }}>
+                      {showYear && (
+                        <span style={{ fontSize: "var(--text-base)", fontWeight: "var(--weight-semibold)", color: "var(--slate-700)" }}>
+                          {p.year}
+                        </span>
+                      )}
+                    </div>
+                    <span style={{ marginTop: LABEL_GAP, width: DOT_SIZE, height: DOT_SIZE, borderRadius: "50%", background: "var(--slate-700)" }} />
+                  </div>
+                </div>
 
-          {/* Timeline cards */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
-            {projects.map((p) => (
-              <ProjectTimelineCard key={p.id} project={p} />
-            ))}
-          </div>
+                <ProjectTimelineCard project={p} />
+              </div>
+            );
+          })}
         </div>
       </main>
     </div>

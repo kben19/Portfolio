@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"KelvinBenzaliPortfolioDesignSystem_72cc70","components":[{"name":"ProjectTimelineCard","sourcePath":"components/cards/ProjectTimelineCard.jsx"},{"name":"WorkCard","sourcePath":"components/cards/WorkCard.jsx"},{"name":"Button","sourcePath":"components/core/Button.jsx"},{"name":"Icon","sourcePath":"components/core/Icon.jsx"},{"name":"SocialLinks","sourcePath":"components/core/SocialLinks.jsx"},{"name":"TechBadge","sourcePath":"components/core/TechBadge.jsx"},{"name":"TextType","sourcePath":"components/core/TextType.jsx"},{"name":"DashboardPanel","sourcePath":"components/data/DashboardPanel.jsx"},{"name":"DonutChart","sourcePath":"components/data/DonutChart.jsx"},{"name":"MetricCard","sourcePath":"components/data/MetricCard.jsx"},{"name":"StatBarRow","sourcePath":"components/data/StatBarRow.jsx"},{"name":"TrafficLineChart","sourcePath":"components/data/TrafficLineChart.jsx"},{"name":"Header","sourcePath":"components/navigation/Header.jsx"}],"sourceHashes":{"components/cards/ProjectTimelineCard.jsx":"b02ce212e904","components/cards/WorkCard.jsx":"1c8e97f37d58","components/core/Button.jsx":"f0e4d8af808d","components/core/Icon.jsx":"ce2962eeb47b","components/core/SocialLinks.jsx":"af4436c82171","components/core/TechBadge.jsx":"c8580c2df84f","components/core/TextType.jsx":"cfaf5885c1cf","components/data/DashboardPanel.jsx":"13df69bd80a0","components/data/DonutChart.jsx":"e7f641c4ee00","components/data/MetricCard.jsx":"fed46689aa54","components/data/StatBarRow.jsx":"4ee404a558fb","components/data/TrafficLineChart.jsx":"e803a9af5234","components/navigation/Header.jsx":"79fabf46284a","ui_kits/portfolio/HomeScreen.jsx":"87806e2372f6","ui_kits/portfolio/LuminNovelSection.jsx":"390e200a84e7","ui_kits/portfolio/ProjectScreen.jsx":"2b99e4a192fa","ui_kits/portfolio/data.js":"96f900c1b285"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"KelvinBenzaliPortfolioDesignSystem_72cc70","components":[{"name":"ProjectTimelineCard","sourcePath":"components/cards/ProjectTimelineCard.jsx"},{"name":"WorkCard","sourcePath":"components/cards/WorkCard.jsx"},{"name":"Button","sourcePath":"components/core/Button.jsx"},{"name":"Icon","sourcePath":"components/core/Icon.jsx"},{"name":"SocialLinks","sourcePath":"components/core/SocialLinks.jsx"},{"name":"TechBadge","sourcePath":"components/core/TechBadge.jsx"},{"name":"TextType","sourcePath":"components/core/TextType.jsx"},{"name":"DashboardPanel","sourcePath":"components/data/DashboardPanel.jsx"},{"name":"DonutChart","sourcePath":"components/data/DonutChart.jsx"},{"name":"MetricCard","sourcePath":"components/data/MetricCard.jsx"},{"name":"StatBarRow","sourcePath":"components/data/StatBarRow.jsx"},{"name":"TrafficLineChart","sourcePath":"components/data/TrafficLineChart.jsx"},{"name":"Header","sourcePath":"components/navigation/Header.jsx"}],"sourceHashes":{"components/cards/ProjectTimelineCard.jsx":"eeac52ab6da9","components/cards/WorkCard.jsx":"1c8e97f37d58","components/core/Button.jsx":"f0e4d8af808d","components/core/Icon.jsx":"ce2962eeb47b","components/core/SocialLinks.jsx":"af4436c82171","components/core/TechBadge.jsx":"c8580c2df84f","components/core/TextType.jsx":"cfaf5885c1cf","components/data/DashboardPanel.jsx":"13df69bd80a0","components/data/DonutChart.jsx":"e7f641c4ee00","components/data/MetricCard.jsx":"fed46689aa54","components/data/StatBarRow.jsx":"4ee404a558fb","components/data/TrafficLineChart.jsx":"e803a9af5234","components/navigation/Header.jsx":"79fabf46284a","ui_kits/portfolio/HomeScreen.jsx":"87806e2372f6","ui_kits/portfolio/LuminNovelSection.jsx":"390e200a84e7","ui_kits/portfolio/ProjectScreen.jsx":"e606a5470754","ui_kits/portfolio/data.js":"a65cb670fe2b"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -195,6 +195,261 @@ function Icon({
 Object.assign(__ds_scope, { Icon });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/Icon.jsx", error: String((e && e.message) || e) }); }
 
+// components/cards/ProjectTimelineCard.jsx
+try { (() => {
+/**
+ * ProjectTimelineCard — a single entry in the vertical project timeline
+ * (the "branch" cards on /project). Flat, hairline-bordered panel: date
+ * chip, role, blurb, an optional status badge, up to three stat callouts
+ * (falling back to a plain impact line when there are none), bullets,
+ * categorized tech pills, an image panel, and outbound links. Runs as a
+ * two-column layout (content + image panel) whenever images are present,
+ * collapsing to a single column under ~860px or when there's no image.
+ */
+function ProjectTimelineCard({
+  project
+}) {
+  const {
+    title,
+    role,
+    year,
+    month,
+    subtitle,
+    status,
+    metrics = [],
+    impact,
+    bullets = [],
+    techGroups = [],
+    tech = [],
+    images = [],
+    links = []
+  } = project;
+  const hasImages = images.length > 0;
+  const showMetrics = metrics.length > 0;
+  return /*#__PURE__*/React.createElement("article", {
+    style: {
+      position: "relative",
+      borderRadius: "var(--radius-2xl)",
+      border: "1px solid var(--border-soft)",
+      background: "transparent",
+      padding: "1.75rem 2rem",
+      fontFamily: "var(--font-sans)"
+    }
+  }, /*#__PURE__*/React.createElement("style", null, `
+        .ptc-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(240px, 1fr); gap: 2.5rem; align-items: start; }
+        @media (max-width: 860px) {
+          .ptc-grid { grid-template-columns: 1fr; }
+        }
+      `), /*#__PURE__*/React.createElement("div", {
+    className: hasImages ? "ptc-grid" : ""
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      minWidth: 0
+    }
+  }, /*#__PURE__*/React.createElement("header", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "flex-start",
+      gap: "0.75rem",
+      flexWrap: "wrap"
+    }
+  }, /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontSize: "var(--text-2xl)",
+      fontWeight: "var(--weight-semibold)",
+      letterSpacing: "var(--tracking-tight)",
+      margin: 0
+    }
+  }, title), /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      borderRadius: "var(--radius-full)",
+      border: "1px solid var(--border-default)",
+      background: "var(--bg-subtle)",
+      padding: "0.3rem 0.75rem",
+      fontSize: "var(--text-xs)",
+      color: "var(--text-secondary)",
+      textTransform: "uppercase",
+      letterSpacing: "0.05em",
+      whiteSpace: "nowrap"
+    }
+  }, year, " ", month)), role && /*#__PURE__*/React.createElement("p", {
+    style: {
+      marginTop: "0.4rem",
+      fontSize: "var(--text-sm)",
+      color: "var(--text-muted)"
+    }
+  }, role), subtitle && /*#__PURE__*/React.createElement("p", {
+    style: {
+      marginTop: "0.75rem",
+      color: "var(--slate-800)",
+      lineHeight: "var(--leading-relaxed)"
+    }
+  }, subtitle), status && /*#__PURE__*/React.createElement("span", {
+    style: {
+      marginTop: "0.75rem",
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "0.375rem",
+      borderRadius: "var(--radius-full)",
+      border: "1px solid rgb(16 185 129 / 0.2)",
+      background: "rgb(16 185 129 / 0.08)",
+      padding: "0.3rem 0.7rem",
+      fontSize: "var(--text-xs)",
+      fontWeight: "var(--weight-medium)",
+      color: "var(--emerald-700)"
+    }
+  }, /*#__PURE__*/React.createElement(__ds_scope.Icon, {
+    name: "check-circle",
+    size: 13,
+    style: {
+      color: "var(--emerald-500)"
+    }
+  }), status.label), showMetrics ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: "1.5rem",
+      display: "flex",
+      border: "1px solid var(--border-default)",
+      borderRadius: "var(--radius-xl)",
+      overflow: "hidden"
+    }
+  }, metrics.slice(0, 3).map((m, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      flex: 1,
+      padding: "1.25rem 1.5rem",
+      borderLeft: i === 0 ? "none" : "1px solid var(--border-default)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: "var(--text-3xl)",
+      fontWeight: "var(--weight-bold)",
+      color: "var(--emerald-500)",
+      letterSpacing: "var(--tracking-tight)"
+    }
+  }, m.value), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: "0.25rem",
+      fontSize: "var(--text-sm)",
+      color: "var(--text-muted)"
+    }
+  }, m.label)))) : impact ? /*#__PURE__*/React.createElement("p", {
+    style: {
+      marginTop: "1rem",
+      color: "var(--emerald-700)"
+    }
+  }, /*#__PURE__*/React.createElement("strong", null, "Impact:"), " ", impact) : null, bullets.length > 0 && /*#__PURE__*/React.createElement("ul", {
+    style: {
+      marginTop: "1.25rem",
+      paddingLeft: "1.25rem",
+      color: "var(--slate-800)",
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.375rem"
+    }
+  }, bullets.map((b, i) => /*#__PURE__*/React.createElement("li", {
+    key: i
+  }, b))), techGroups.length > 0 ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: "1.5rem",
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.625rem"
+    }
+  }, techGroups.map((g, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      display: "flex",
+      flexWrap: "wrap",
+      alignItems: "center",
+      gap: "0.5rem"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: "var(--text-sm)",
+      fontWeight: "var(--weight-medium)",
+      color: "var(--emerald-700)",
+      flexShrink: 0
+    }
+  }, g.category, ":"), g.items.map(t => /*#__PURE__*/React.createElement("span", {
+    key: t,
+    style: {
+      borderRadius: "var(--radius-md)",
+      border: "1px solid var(--border-default)",
+      padding: "0.25rem 0.625rem",
+      fontSize: "var(--text-xs)",
+      color: "var(--text-secondary)"
+    }
+  }, t))))) : tech.length > 0 ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: "1.5rem",
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "0.5rem"
+    }
+  }, tech.map(t => /*#__PURE__*/React.createElement("span", {
+    key: t,
+    style: {
+      borderRadius: "var(--radius-md)",
+      border: "1px solid var(--border-default)",
+      padding: "0.25rem 0.625rem",
+      fontSize: "var(--text-xs)",
+      color: "var(--text-secondary)"
+    }
+  }, t))) : null, links.length > 0 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: "1.25rem",
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "1.25rem"
+    }
+  }, links.map(l => /*#__PURE__*/React.createElement("a", {
+    key: l.href,
+    href: l.href,
+    target: "_blank",
+    rel: "noreferrer",
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "0.375rem",
+      fontSize: "var(--text-sm)",
+      color: "var(--text-primary)",
+      textDecoration: "underline",
+      textUnderlineOffset: 3
+    }
+  }, /*#__PURE__*/React.createElement(__ds_scope.Icon, {
+    name: "external-link",
+    size: 14
+  }), l.label)))), hasImages && /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.75rem"
+    }
+  }, images.map((img, i) => /*#__PURE__*/React.createElement("figure", {
+    key: i,
+    style: {
+      margin: 0,
+      borderRadius: "var(--radius-2xl)",
+      border: "1px solid var(--border-soft)",
+      background: "var(--bg-subtle)",
+      overflow: "hidden"
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: img.src,
+    alt: img.alt,
+    style: {
+      width: "100%",
+      display: "block",
+      objectFit: "cover"
+    }
+  }))))));
+}
+Object.assign(__ds_scope, { ProjectTimelineCard });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/cards/ProjectTimelineCard.jsx", error: String((e && e.message) || e) }); }
+
 // components/core/SocialLinks.jsx
 try { (() => {
 /**
@@ -274,169 +529,6 @@ function TechBadge({
 }
 Object.assign(__ds_scope, { TechBadge });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/TechBadge.jsx", error: String((e && e.message) || e) }); }
-
-// components/cards/ProjectTimelineCard.jsx
-try { (() => {
-/**
- * ProjectTimelineCard — a single entry in the vertical project timeline
- * (the "branch" cards on /project). Frosted card, year/month chip, role,
- * blurb, impact line, bullets, tech pills, image grid, links.
- */
-function ProjectTimelineCard({
-  project
-}) {
-  const {
-    title,
-    role,
-    year,
-    month,
-    subtitle,
-    impact,
-    bullets = [],
-    tech = [],
-    images = [],
-    links = []
-  } = project;
-  return /*#__PURE__*/React.createElement("article", {
-    style: {
-      position: "relative",
-      borderRadius: "var(--radius-2xl)",
-      border: "1px solid var(--border-soft)",
-      background: "var(--bg-card-neutral)",
-      backdropFilter: "blur(8px)",
-      boxShadow: "var(--shadow-card-lg)",
-      padding: "1.5rem",
-      fontFamily: "var(--font-sans)"
-    }
-  }, /*#__PURE__*/React.createElement("header", {
-    style: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "flex-start",
-      gap: "0.5rem",
-      flexWrap: "wrap"
-    }
-  }, /*#__PURE__*/React.createElement("h3", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: "0.5rem",
-      fontSize: "var(--text-2xl)",
-      fontWeight: "var(--weight-semibold)",
-      margin: 0
-    }
-  }, /*#__PURE__*/React.createElement(__ds_scope.Icon, {
-    name: "git-branch",
-    size: 20
-  }), title), /*#__PURE__*/React.createElement("span", {
-    style: {
-      display: "inline-flex",
-      alignItems: "center",
-      gap: "0.375rem",
-      borderRadius: "var(--radius-full)",
-      border: "1px solid rgb(17 24 39 / 0.15)",
-      padding: "0.375rem 0.75rem",
-      fontSize: "var(--text-xs)",
-      color: "var(--text-primary)",
-      textTransform: "uppercase",
-      letterSpacing: "0.05em"
-    }
-  }, /*#__PURE__*/React.createElement(__ds_scope.Icon, {
-    name: "calendar",
-    size: 14
-  }), year, " ", month)), role && /*#__PURE__*/React.createElement("p", {
-    style: {
-      marginTop: "0.5rem",
-      fontSize: "var(--text-sm)",
-      color: "var(--slate-700)"
-    }
-  }, role), subtitle && /*#__PURE__*/React.createElement("p", {
-    style: {
-      marginTop: "0.75rem",
-      color: "var(--slate-800)"
-    }
-  }, subtitle), impact && /*#__PURE__*/React.createElement("p", {
-    style: {
-      marginTop: "0.5rem",
-      color: "rgb(16 185 129 / 0.9)"
-    }
-  }, /*#__PURE__*/React.createElement("strong", null, "Impact:"), " ", impact), bullets.length > 0 && /*#__PURE__*/React.createElement("ul", {
-    style: {
-      marginTop: "1rem",
-      paddingLeft: "1.25rem",
-      color: "var(--slate-800)",
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.25rem"
-    }
-  }, bullets.map((b, i) => /*#__PURE__*/React.createElement("li", {
-    key: i
-  }, b))), tech.length > 0 && /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginTop: "1rem",
-      display: "flex",
-      flexWrap: "wrap",
-      gap: "0.5rem"
-    }
-  }, tech.map(t => /*#__PURE__*/React.createElement(__ds_scope.TechBadge, {
-    key: t,
-    label: t
-  }))), images.length > 0 && /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginTop: "1.25rem",
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-      gap: "0.75rem",
-      alignItems: "center"
-    }
-  }, images.map((img, i) => /*#__PURE__*/React.createElement("figure", {
-    key: i,
-    style: {
-      margin: 0,
-      borderRadius: "var(--radius-2xl)",
-      border: "1px solid rgb(0 0 0 / 0.2)",
-      background: "white",
-      overflow: "hidden"
-    }
-  }, /*#__PURE__*/React.createElement("img", {
-    src: img.src,
-    alt: img.alt,
-    style: {
-      width: "100%",
-      display: "block",
-      objectFit: "cover"
-    }
-  })))), links.length > 0 && /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginTop: "1rem",
-      display: "flex",
-      flexWrap: "wrap",
-      gap: "0.75rem"
-    }
-  }, links.map(l => /*#__PURE__*/React.createElement("a", {
-    key: l.href,
-    href: l.href,
-    target: "_blank",
-    rel: "noreferrer",
-    style: {
-      display: "inline-flex",
-      alignItems: "center",
-      gap: "0.375rem",
-      borderRadius: "var(--radius-md)",
-      border: "1px solid rgb(255 255 255 / 0.15)",
-      background: "rgb(255 255 255 / 0.4)",
-      padding: "0.375rem 0.75rem",
-      fontSize: "var(--text-sm)",
-      color: "var(--text-primary)",
-      textDecoration: "none"
-    }
-  }, /*#__PURE__*/React.createElement(__ds_scope.Icon, {
-    name: "external-link",
-    size: 14
-  }), l.label))));
-}
-Object.assign(__ds_scope, { ProjectTimelineCard });
-})(); } catch (e) { __ds_ns.__errors.push({ path: "components/cards/ProjectTimelineCard.jsx", error: String((e && e.message) || e) }); }
 
 // components/core/TextType.jsx
 try { (() => {
@@ -2418,13 +2510,17 @@ function ProjectScreen({
 }) {
   const {
     Header,
-    ProjectTimelineCard,
-    Icon
+    ProjectTimelineCard
   } = window.KelvinBenzaliPortfolioDesignSystem_72cc70;
   const {
     projects
   } = window.PORTFOLIO_DATA;
-  const years = Array.from(new Set(projects.map(p => p.year))).sort((a, b) => b - a);
+  const RAIL_WIDTH = 64;
+  const DOT_SIZE = 10;
+  const ROW_GAP = 40; // must match the flex column gap below (2.5rem)
+  const LABEL_SLOT = 22;
+  const LABEL_GAP = 6;
+  const dotCenterY = LABEL_SLOT + LABEL_GAP + DOT_SIZE / 2;
   return /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "var(--font-sans)",
@@ -2443,19 +2539,22 @@ function ProjectScreen({
       href: "#work",
       label: "Work"
     }, {
+      href: "#project",
+      label: "Project"
+    }, {
       href: "#contact",
       label: "Contact"
     }]
   }), /*#__PURE__*/React.createElement("main", {
     style: {
-      maxWidth: 1152,
+      maxWidth: "var(--container-max)",
       margin: "0 auto",
-      padding: "1rem 1.5rem 4rem",
+      padding: "1rem var(--container-px) 6rem",
       boxSizing: "border-box"
     }
   }, /*#__PURE__*/React.createElement("header", {
     style: {
-      marginBottom: "2.5rem"
+      marginBottom: "3.5rem"
     }
   }, /*#__PURE__*/React.createElement("a", {
     href: "#",
@@ -2483,50 +2582,66 @@ function ProjectScreen({
     }
   }, "A focused timeline of major initiatives I led or contributed to between 2019 and 2025.")), /*#__PURE__*/React.createElement("div", {
     style: {
-      display: "grid",
-      gridTemplateColumns: "72px 1fr",
-      gap: "1.5rem"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "sticky",
-      top: 24,
-      alignSelf: "start",
       display: "flex",
       flexDirection: "column",
-      gap: "3rem",
-      paddingTop: "0.5rem"
+      gap: `${ROW_GAP}px`
     }
-  }, years.map(y => /*#__PURE__*/React.createElement("div", {
-    key: y,
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: "0.5rem"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      width: 14,
-      height: 14,
-      borderRadius: "50%",
-      background: "var(--slate-700)"
-    }
-  }), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: "var(--text-lg)",
-      fontWeight: "var(--weight-semibold)",
-      color: "var(--slate-700)"
-    }
-  }, y)))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "1.75rem"
-    }
-  }, projects.map(p => /*#__PURE__*/React.createElement(ProjectTimelineCard, {
-    key: p.id,
-    project: p
-  }))))));
+  }, projects.map((p, i) => {
+    const showYear = i === 0 || projects[i - 1].year !== p.year;
+    const isLast = i === projects.length - 1;
+    return /*#__PURE__*/React.createElement("div", {
+      key: p.id,
+      style: {
+        display: "grid",
+        gridTemplateColumns: `${RAIL_WIDTH}px 1fr`,
+        gap: "1.5rem"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: "relative"
+      }
+    }, !isLast && /*#__PURE__*/React.createElement("span", {
+      style: {
+        position: "absolute",
+        top: dotCenterY,
+        left: RAIL_WIDTH / 2 - 0.5,
+        width: 1,
+        height: `calc(100% - ${dotCenterY}px + ${ROW_GAP}px)`,
+        background: "var(--border-soft)",
+        zIndex: 0
+      }
+    }), /*#__PURE__*/React.createElement("div", {
+      style: {
+        position: "relative",
+        zIndex: 1,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        height: LABEL_SLOT,
+        display: "flex",
+        alignItems: "center"
+      }
+    }, showYear && /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: "var(--text-base)",
+        fontWeight: "var(--weight-semibold)",
+        color: "var(--slate-700)"
+      }
+    }, p.year)), /*#__PURE__*/React.createElement("span", {
+      style: {
+        marginTop: LABEL_GAP,
+        width: DOT_SIZE,
+        height: DOT_SIZE,
+        borderRadius: "50%",
+        background: "var(--slate-700)"
+      }
+    }))), /*#__PURE__*/React.createElement(ProjectTimelineCard, {
+      project: p
+    }));
+  }))));
 }
 window.ProjectScreen = ProjectScreen;
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/portfolio/ProjectScreen.jsx", error: String((e && e.message) || e) }); }
@@ -2675,9 +2790,27 @@ window.PORTFOLIO_DATA = {
     title: "Cloud Migration — Migration Tokopedia Digital Core Service",
     role: "Senior Software Engineer — Tokopedia Digital",
     subtitle: "Led the migration project of the digital core service to ByteDance cloud platform.",
-    impact: "Successful migration service reduce ~20% infrastructure cost, increasing stability while maintaining SLOs",
+    status: {
+      label: "Successful Migration"
+    },
+    metrics: [{
+      value: "20%",
+      label: "Infrastructure Cost Reduction"
+    }, {
+      value: "SLOs",
+      label: "Stability & SLOs Maintained"
+    }],
     bullets: ["Standardized new design docs, runbooks, updated SOP/playbooks in terms of development, scaling operations and monitoring.", "Optimizing and refactor the migrated services to improve performance and stability within the new cloud environment."],
-    tech: ["Go", "Docker", "Kubernetes", "gRPC", "Postgresql", "mysql", "Redis", "NSQ", "Nginx", "GCP", "AWS"],
+    techGroups: [{
+      category: "Infrastructure & Cloud",
+      items: ["GCP", "AWS", "Docker", "Kubernetes"]
+    }, {
+      category: "Backend & Application",
+      items: ["Go", "gRPC", "NSQ", "Redis", "Nginx"]
+    }, {
+      category: "Database",
+      items: ["PostgreSQL", "MySQL"]
+    }],
     links: [{
       label: "Tokopedia Digital App",
       href: "https://www.tokopedia.com/top-up-tagihan"
@@ -2693,9 +2826,24 @@ window.PORTFOLIO_DATA = {
     title: "Toko Sandbox — CI/CD-Gated Test Environment (Shift-Left)",
     role: "Senior Software Engineer — Tokopedia Travel",
     subtitle: "Proposed and led the design of a self-service sandbox simulator which established a reliable testing environment.",
-    impact: "Cut integration/regression test time by ~40–50% and increased test coverage ~30%, boosting release confidence.",
+    metrics: [{
+      value: "40–50%",
+      label: "Faster Regression Tests"
+    }, {
+      value: "~30%",
+      label: "Increased Test Coverage"
+    }],
     bullets: ["Integrated with CI/CD pipelines to enable automated integration and regression testing.", "Promotes a test driven development culture by providing a self-service testing environment."],
-    tech: ["Go", "Docker", "Kubernetes", "REST API", "Postgresql", "Redis", "CICD"],
+    techGroups: [{
+      category: "Infrastructure & Cloud",
+      items: ["Docker", "Kubernetes", "CI/CD"]
+    }, {
+      category: "Backend & Application",
+      items: ["Go", "REST API"]
+    }, {
+      category: "Database",
+      items: ["PostgreSQL", "Redis"]
+    }],
     links: [],
     images: [{
       src: "../../assets/illustrations/sandbox-illustration.svg",
@@ -2713,7 +2861,16 @@ window.PORTFOLIO_DATA = {
     subtitle: "Development of Mitra App and Sobat Dashboard from the ground up.",
     impact: "Promotes business growth year on year on Mitra App and its enterprise tools of Sobat Dashboard.",
     bullets: ["Delivers Mitra App to address the problems of b2b market demands on Indonesia's independent sellers.", "Delivers Sobat Dashboard as an enterprise tools for analyzing Mitra business growth."],
-    tech: ["Go", "Docker", "GCP", "Postgres", "Redis", "NSQ", "Svelte"],
+    techGroups: [{
+      category: "Infrastructure & Cloud",
+      items: ["GCP", "Docker"]
+    }, {
+      category: "Backend & Application",
+      items: ["Go", "NSQ", "Svelte"]
+    }, {
+      category: "Database",
+      items: ["PostgreSQL", "Redis"]
+    }],
     links: [],
     images: [{
       src: "../../assets/photos/mitra-page.jpeg",

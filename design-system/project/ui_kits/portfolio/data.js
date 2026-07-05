@@ -75,12 +75,20 @@ window.PORTFOLIO_DATA = {
       title: "Cloud Migration — Migration Tokopedia Digital Core Service",
       role: "Senior Software Engineer — Tokopedia Digital",
       subtitle: "Led the migration project of the digital core service to ByteDance cloud platform.",
-      impact: "Successful migration service reduce ~20% infrastructure cost, increasing stability while maintaining SLOs",
+      status: { label: "Successful Migration" },
+      metrics: [
+        { value: "20%", label: "Infrastructure Cost Reduction" },
+        { value: "SLOs", label: "Stability & SLOs Maintained" },
+      ],
       bullets: [
         "Standardized new design docs, runbooks, updated SOP/playbooks in terms of development, scaling operations and monitoring.",
         "Optimizing and refactor the migrated services to improve performance and stability within the new cloud environment.",
       ],
-      tech: ["Go", "Docker", "Kubernetes", "gRPC", "Postgresql", "mysql", "Redis", "NSQ", "Nginx", "GCP", "AWS"],
+      techGroups: [
+        { category: "Infrastructure & Cloud", items: ["GCP", "AWS", "Docker", "Kubernetes"] },
+        { category: "Backend & Application", items: ["Go", "gRPC", "NSQ", "Redis", "Nginx"] },
+        { category: "Database", items: ["PostgreSQL", "MySQL"] },
+      ],
       links: [{ label: "Tokopedia Digital App", href: "https://www.tokopedia.com/top-up-tagihan" }],
       images: [{ src: "../../assets/photos/migration.gif", alt: "Cloud Server Migration" }],
     },
@@ -91,12 +99,19 @@ window.PORTFOLIO_DATA = {
       title: "Toko Sandbox — CI/CD-Gated Test Environment (Shift-Left)",
       role: "Senior Software Engineer — Tokopedia Travel",
       subtitle: "Proposed and led the design of a self-service sandbox simulator which established a reliable testing environment.",
-      impact: "Cut integration/regression test time by ~40–50% and increased test coverage ~30%, boosting release confidence.",
+      metrics: [
+        { value: "40–50%", label: "Faster Regression Tests" },
+        { value: "~30%", label: "Increased Test Coverage" },
+      ],
       bullets: [
         "Integrated with CI/CD pipelines to enable automated integration and regression testing.",
         "Promotes a test driven development culture by providing a self-service testing environment.",
       ],
-      tech: ["Go", "Docker", "Kubernetes", "REST API", "Postgresql", "Redis", "CICD"],
+      techGroups: [
+        { category: "Infrastructure & Cloud", items: ["Docker", "Kubernetes", "CI/CD"] },
+        { category: "Backend & Application", items: ["Go", "REST API"] },
+        { category: "Database", items: ["PostgreSQL", "Redis"] },
+      ],
       links: [],
       images: [
         { src: "../../assets/illustrations/sandbox-illustration.svg", alt: "Sandbox Simulator Illustration" },
@@ -115,7 +130,11 @@ window.PORTFOLIO_DATA = {
         "Delivers Mitra App to address the problems of b2b market demands on Indonesia's independent sellers.",
         "Delivers Sobat Dashboard as an enterprise tools for analyzing Mitra business growth.",
       ],
-      tech: ["Go", "Docker", "GCP", "Postgres", "Redis", "NSQ", "Svelte"],
+      techGroups: [
+        { category: "Infrastructure & Cloud", items: ["GCP", "Docker"] },
+        { category: "Backend & Application", items: ["Go", "NSQ", "Svelte"] },
+        { category: "Database", items: ["PostgreSQL", "Redis"] },
+      ],
       links: [],
       images: [{ src: "../../assets/photos/mitra-page.jpeg", alt: "Mitra Tokopedia App" }],
     },
