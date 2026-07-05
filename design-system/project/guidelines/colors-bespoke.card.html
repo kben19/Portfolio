@@ -1,15 +1,21 @@
-<!-- @dsCard group="Colors" viewport="700x150" name="Bespoke & Rare" subtitle="Navy about-section bg, rose emphasis, declared-but-unused brand blue" -->
+<!-- @dsCard group="Colors" viewport="700x210" name="Bespoke & Rare" subtitle="Navy about-section bg, dashboard panel navy, rose emphasis, declared-but-unused brand blue" -->
 <!DOCTYPE html>
 <html><head><link rel="stylesheet" href="../styles.css">
 <style>
   body{margin:0;font-family:var(--font-sans);background:var(--bg-page)}
   .row{display:flex;height:150px}
   .sw{flex:1;display:flex;align-items:flex-end;padding:10px;box-sizing:border-box;color:white;font-size:12px}
+  .stack{display:flex;height:60px}
+  .stack .sw{align-items:center}
 </style></head>
 <body>
 <div class="row">
-  <div class="sw" style="background:var(--navy-about)">navy-about — #0f1b2a<br>About/dashboard section bg</div>
+  <div class="sw" style="background:var(--navy-about)">navy-about — #0f1b2a<br>About section page bg (darkest layer)</div>
   <div class="sw" style="background:var(--rose-400)">rose-400 — #fb7185<br>bold-word emphasis, used once</div>
   <div class="sw" style="background:var(--color-brand)">brand blue — #0ea5e9<br>declared in tailwind config, unused in app</div>
+</div>
+<div class="stack">
+  <div class="sw" style="background:var(--navy-panel)">navy-panel — #16263f · dashboard outer card</div>
+  <div class="sw" style="background:var(--navy-panel-soft)">navy-panel-soft — #1c2f4d · inner tiles</div>
 </div>
 </body></html>

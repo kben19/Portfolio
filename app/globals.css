@@ -30,3 +30,14 @@ body {
 .animate-typing-dot {
   animation: typing-dot 1.2s ease-out infinite;
 }
+
+/* Dashboard "live" indicator dot — the built-in animate-pulse timing/opacity
+   curve doesn't match, so this is a genuinely un-utility-able one-off. */
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.animate-live-pulse {
+  animation: live-pulse 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}

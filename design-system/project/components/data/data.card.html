@@ -1,4 +1,4 @@
-<!-- @dsCard group="Components" viewport="700x460" name="Data" subtitle="MetricCard, StatBarRow, DashboardPanel" -->
+<!-- @dsCard group="Components" viewport="820x620" name="Data" subtitle="MetricCard, TrafficLineChart, DonutChart, StatBarRow, DashboardPanel" -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,19 +14,37 @@
 <script type="text/babel">
 const { DashboardPanel } = window.KelvinBenzaliPortfolioDesignSystem_72cc70;
 
+function genSeries(len, base, amp, seed) {
+  const out = [];
+  let s = seed;
+  for (let i = 0; i < len; i++) {
+    s = (s * 9301 + 49297) % 233280;
+    const rnd = s / 233280;
+    const wave = Math.sin(i / 3.2) * amp * 0.6 + Math.sin(i / 7) * amp * 0.4;
+    out.push(Math.max(1, Math.round(base + wave + (rnd - 0.5) * amp * 0.3)));
+  }
+  return out;
+}
+const dates = Array.from({ length: 31 }, (_, i) => {
+  const d = new Date(2025, 11, 1 + i);
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+});
+
 function Demo() {
   return (
     <div style={{padding:20}}>
       <DashboardPanel
+        credit={<span style={{color:"rgb(255 255 255 / 0.4)", fontSize:12}}>Powered by Supabase</span>}
         visitors={[
           {label:"Visitors", value: 812, delta:"+18%", deltaTone:"good"},
           {label:"Page Views", value: 2140, delta:"-4%", deltaTone:"bad"},
         ]}
+        series={{ dates, visitors: genSeries(31, 40, 20, 7), pageViews: genSeries(31, 95, 45, 13) }}
         rows={{
           countries: [{icon:null, label:"🇮🇩 Indonesia", percent:54},{icon:null, label:"🇺🇸 United States", percent:21}],
           devices: [{icon:"monitor", label:"Desktop", percent:68},{icon:"smartphone", label:"Mobile", percent:32}],
-          browsers: [{icon:"chrome", iconSet:"brand", label:"Chrome", percent:71}],
-          referrers: [{icon:"github", iconSet:"brand", label:"github.com", percent:40}],
+          browsers: [{icon:"googlechrome", iconSet:"brand", label:"Chrome", percent:71},{icon:"safari", iconSet:"brand", label:"Safari", percent:29}],
+          referrers: [{icon:"github", iconSet:"brand", label:"github.com", percent:40},{icon:"google", iconSet:"brand", label:"google.com", percent:35},{icon:"linkedin", iconSet:"brand", label:"linkedin.com", percent:25}],
         }}
       />
     </div>

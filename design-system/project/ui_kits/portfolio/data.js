@@ -1,5 +1,24 @@
 // Sample data for the Home + Project screens — mirrors the shape/content of
 // the real app/page.tsx and app/project/page.tsx (kben19/Portfolio).
+
+// Deterministic pseudo-random 31-day traffic wave for the DashboardPanel's
+// Traffic Trends chart — sample data only (production pulls real Supabase numbers).
+function generateTrafficSeries(len, base, amp, seed) {
+  const out = [];
+  let s = seed;
+  for (let i = 0; i < len; i++) {
+    s = (s * 9301 + 49297) % 233280;
+    const rnd = s / 233280;
+    const wave = Math.sin(i / 3.2) * amp * 0.6 + Math.sin(i / 7) * amp * 0.4;
+    out.push(Math.max(1, Math.round(base + wave + (rnd - 0.5) * amp * 0.3)));
+  }
+  return out;
+}
+const TRAFFIC_DATES = Array.from({ length: 31 }, (_, i) => {
+  const d = new Date(2025, 11, 1 + i);
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+});
+
 window.PORTFOLIO_DATA = {
   heroTyping: [
     "Building one of biggest Indonesia e-commerce industry for over 7 years.\n\nSpecializing in scalable microservices serving millions of users.",
@@ -19,6 +38,11 @@ window.PORTFOLIO_DATA = {
       { label: "Visitors", value: 1284, delta: "+22%", deltaTone: "good" },
       { label: "Page Views", value: 3902, delta: "+9%", deltaTone: "good" },
     ],
+    series: {
+      dates: TRAFFIC_DATES,
+      visitors: generateTrafficSeries(31, 40, 20, 7),
+      pageViews: generateTrafficSeries(31, 95, 45, 13),
+    },
     rows: {
       countries: [
         { icon: null, label: "🇮🇩 Indonesia", percent: 54 },

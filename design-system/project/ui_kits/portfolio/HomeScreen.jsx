@@ -44,10 +44,10 @@ function HomeScreen({ onNavigate }) {
 
       {/* About */}
       <section id="about" style={{ background: "var(--bg-navy-panel)", color: "white" }}>
-        <div style={{ maxWidth: "var(--container-max)", margin: "0 auto", padding: "3rem 1.5rem", display: "grid", gridTemplateColumns: "7fr 3fr", gap: "2rem", boxSizing: "border-box" }}>
+        <div style={{ maxWidth: "var(--container-max)", margin: "0 auto", padding: "3rem 1.5rem", display: "grid", gridTemplateColumns: "6fr 5fr", gap: "3rem", alignItems: "center", boxSizing: "border-box" }}>
           <div>
             <h2 style={{ margin: "0 0 1.5rem", fontSize: "var(--text-6xl)", fontWeight: "var(--weight-bold)", letterSpacing: "var(--tracking-tight)" }}>About Me:</h2>
-            <p style={{ maxWidth: 640, fontSize: "var(--text-xl)", lineHeight: "var(--leading-relaxed)", color: "rgb(255 255 255 / 0.9)" }}>
+            <p style={{ maxWidth: 720, fontSize: "var(--text-xl)", lineHeight: "var(--leading-relaxed)", color: "rgb(255 255 255 / 0.9)" }}>
               For me, creating an app is not just solving a problem. It is about the continuity and a{" "}
               <b style={{ color: "var(--rose-400)" }}>meaningful impact</b> that we can bring to others. Technology is
               constantly evolving, unlocking new possibilities that once seemed out of reach. What was once a barrier
@@ -57,11 +57,17 @@ function HomeScreen({ onNavigate }) {
             </p>
           </div>
           <div>
-            <DashboardPanel visitors={dashboard.visitors} rows={dashboard.rows} />
-            <div style={{ display: "flex", gap: "0.5rem", alignItems: "center", paddingTop: "1rem", paddingLeft: "0.5rem" }}>
-              <p style={{ margin: 0, fontSize: "var(--text-sm)", color: "var(--text-faint)" }}>Powered by Supabase</p>
-              <SocialLinks links={[{ icon: "supabase", url: "https://supabase.com", label: "Supabase" }]} />
-            </div>
+            <DashboardPanel
+              visitors={dashboard.visitors}
+              series={dashboard.series}
+              rows={dashboard.rows}
+              credit={
+                <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+                  <p style={{ margin: 0, fontSize: "var(--text-xs)", color: "rgb(255 255 255 / 0.4)" }}>Powered by Supabase</p>
+                  <SocialLinks links={[{ icon: "supabase", url: "https://supabase.com", label: "Supabase" }]} gap={8} />
+                </div>
+              }
+            />
           </div>
         </div>
       </section>

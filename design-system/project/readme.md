@@ -34,9 +34,11 @@ Grouped by directory under `components/`:
 - **ProjectTimelineCard** — frosted project card for the `/project` vertical timeline
 
 **Data** (`components/data/`)
-- **MetricCard** — white stat tile with a delta chip
-- **StatBarRow** — ranked bar-list row (countries/devices/browsers/referrers)
-- **DashboardPanel** — dark glass analytics widget composing the two above
+- **MetricCard** — dark navy stat tile with an inline colored delta
+- **StatBarRow** — ranked bar-list row (Countries/Referrers tabs)
+- **TrafficLineChart** — dual-line traffic trend chart with gradient fill + hover tooltip (Visitors tab)
+- **DonutChart** — hollow ring breakdown with legend (Devices/Browsers tabs)
+- **DashboardPanel** — premium-navy analytics widget composing the four above
 
 ### Intentional additions
 The source app has no formal component library — these are the real section components from `components/*.tsx`, decomposed into reusable primitives (e.g. `MiniDashboard.tsx` → `MetricCard` + `StatBarRow` + `DashboardPanel`). One addition beyond direct decomposition:
@@ -82,7 +84,7 @@ Not ported: `InitSession.tsx` (analytics wiring, no visual output), `About.tsx` 
 
 ## Visual foundations
 
-**Color:** a white base with one real accent — **emerald** (`#10b981` / `#34d399`) — used for the current-employer highlight in the hero, hover states on social links and footer credit words, and the "impact" line on each project card. **Slate** is the only dark surface color (Contact panel `#1e293b`, footer bar `#0f172a`). The About/dashboard section uses one bespoke deep navy (`#0f1b2a`) found nowhere else. Two pastel tints — emerald-100 and sky-100 — exist solely as the two Work-grid panel backgrounds, each project gets its own tint so the two cards never look identical. Rose (`#fb7185`) appears exactly once, on bolded words inside the About paragraph. `tailwind.config.js` declares a `brand` sky-blue color that is **never actually used** in any component — don't treat it as the real accent; emerald is.
+**Color:** a white base with one real accent — **emerald** (`#10b981` / `#34d399`) — used for the current-employer highlight in the hero, hover states on social links and footer credit words, and the "impact" line on each project card. **Slate** is the only dark surface color (Contact panel `#1e293b`, footer bar `#0f172a`). The About section uses one bespoke deep navy (`#0f1b2a`, `--navy-about`) found nowhere else — the `DashboardPanel` floating on top of it uses two lighter navy shades (`--navy-panel` `#16263f`, `--navy-panel-soft` `#1c2f4d`) so the card and its inner tiles read as distinct surfaces rather than a flat continuation of the section. The dashboard's charts reuse the site's two real accents as a categorical palette — emerald for Visitors/Countries/Desktop-style "first" series, sky-blue (`--sky-500`) for Page Views/Referrers/Mobile-style "second" series — plus neutral `--slate-400` as a third tone, never inventing new hues. Two pastel tints — emerald-100 and sky-100 — exist solely as the two Work-grid panel backgrounds, each project gets its own tint so the two cards never look identical. Rose (`#fb7185`) appears exactly once, on bolded words inside the About paragraph. `tailwind.config.js` declares a `brand` sky-blue color that is **never actually used** in any component — don't treat it as the real accent; emerald is.
 
 **Type:** a single typeface, Plus Jakarta Sans, weights 400/500/600/700(/800 for the boldest headings), loaded once via `next/font/google`. There is no serif or mono anywhere in the product. Scale is used for contrast, not subtlety — hero name jumps straight to 72px (`text-7xl`) at desktop, and the "Work."/"Say hi." dividers are fluid `14vw`→`10vw` billboard type, easily 150px+. Tight letter-spacing (`tracking-tight`) on every large heading.
 

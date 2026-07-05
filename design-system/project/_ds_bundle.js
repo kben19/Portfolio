@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"KelvinBenzaliPortfolioDesignSystem_72cc70","components":[{"name":"ProjectTimelineCard","sourcePath":"components/cards/ProjectTimelineCard.jsx"},{"name":"WorkCard","sourcePath":"components/cards/WorkCard.jsx"},{"name":"Button","sourcePath":"components/core/Button.jsx"},{"name":"Icon","sourcePath":"components/core/Icon.jsx"},{"name":"SocialLinks","sourcePath":"components/core/SocialLinks.jsx"},{"name":"TechBadge","sourcePath":"components/core/TechBadge.jsx"},{"name":"TextType","sourcePath":"components/core/TextType.jsx"},{"name":"DashboardPanel","sourcePath":"components/data/DashboardPanel.jsx"},{"name":"MetricCard","sourcePath":"components/data/MetricCard.jsx"},{"name":"StatBarRow","sourcePath":"components/data/StatBarRow.jsx"},{"name":"Header","sourcePath":"components/navigation/Header.jsx"}],"sourceHashes":{"components/cards/ProjectTimelineCard.jsx":"b02ce212e904","components/cards/WorkCard.jsx":"1c8e97f37d58","components/core/Button.jsx":"f0e4d8af808d","components/core/Icon.jsx":"ce2962eeb47b","components/core/SocialLinks.jsx":"af4436c82171","components/core/TechBadge.jsx":"c8580c2df84f","components/core/TextType.jsx":"cfaf5885c1cf","components/data/DashboardPanel.jsx":"62a90b17bcb5","components/data/MetricCard.jsx":"f491e572cd58","components/data/StatBarRow.jsx":"cd6b352f715c","components/navigation/Header.jsx":"79fabf46284a","ui_kits/portfolio/HomeScreen.jsx":"b30d607df73a","ui_kits/portfolio/LuminNovelSection.jsx":"390e200a84e7","ui_kits/portfolio/ProjectScreen.jsx":"2b99e4a192fa","ui_kits/portfolio/data.js":"6bc3c3fec799"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"KelvinBenzaliPortfolioDesignSystem_72cc70","components":[{"name":"ProjectTimelineCard","sourcePath":"components/cards/ProjectTimelineCard.jsx"},{"name":"WorkCard","sourcePath":"components/cards/WorkCard.jsx"},{"name":"Button","sourcePath":"components/core/Button.jsx"},{"name":"Icon","sourcePath":"components/core/Icon.jsx"},{"name":"SocialLinks","sourcePath":"components/core/SocialLinks.jsx"},{"name":"TechBadge","sourcePath":"components/core/TechBadge.jsx"},{"name":"TextType","sourcePath":"components/core/TextType.jsx"},{"name":"DashboardPanel","sourcePath":"components/data/DashboardPanel.jsx"},{"name":"DonutChart","sourcePath":"components/data/DonutChart.jsx"},{"name":"MetricCard","sourcePath":"components/data/MetricCard.jsx"},{"name":"StatBarRow","sourcePath":"components/data/StatBarRow.jsx"},{"name":"TrafficLineChart","sourcePath":"components/data/TrafficLineChart.jsx"},{"name":"Header","sourcePath":"components/navigation/Header.jsx"}],"sourceHashes":{"components/cards/ProjectTimelineCard.jsx":"b02ce212e904","components/cards/WorkCard.jsx":"1c8e97f37d58","components/core/Button.jsx":"f0e4d8af808d","components/core/Icon.jsx":"ce2962eeb47b","components/core/SocialLinks.jsx":"af4436c82171","components/core/TechBadge.jsx":"c8580c2df84f","components/core/TextType.jsx":"cfaf5885c1cf","components/data/DashboardPanel.jsx":"13df69bd80a0","components/data/DonutChart.jsx":"e7f641c4ee00","components/data/MetricCard.jsx":"fed46689aa54","components/data/StatBarRow.jsx":"4ee404a558fb","components/data/TrafficLineChart.jsx":"e803a9af5234","components/navigation/Header.jsx":"79fabf46284a","ui_kits/portfolio/HomeScreen.jsx":"87806e2372f6","ui_kits/portfolio/LuminNovelSection.jsx":"390e200a84e7","ui_kits/portfolio/ProjectScreen.jsx":"2b99e4a192fa","ui_kits/portfolio/data.js":"96f900c1b285"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -510,26 +510,187 @@ function TextType({
 Object.assign(__ds_scope, { TextType });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/TextType.jsx", error: String((e && e.message) || e) }); }
 
+// components/data/DonutChart.jsx
+try { (() => {
+const {
+  useState
+} = React;
+const SIZE = 144;
+const STROKE = 20;
+const R = (SIZE - STROKE) / 2;
+const CIRC = 2 * Math.PI * R;
+
+/**
+ * DonutChart — hollow ring breakdown with a legend, used for the Devices
+ * and Browsers tabs of `DashboardPanel` (Countries/Referrers use
+ * `StatBarRow` bar lists instead — the two chart types are deliberately
+ * different so each tab's shape is recognizable at a glance).
+ */
+function DonutChart({
+  data = []
+}) {
+  const [hoverIdx, setHoverIdx] = React.useState(null);
+  let cumulative = 0;
+  const top = hoverIdx != null ? data[hoverIdx] : data[0];
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: "1.5rem",
+      flexWrap: "wrap",
+      borderRadius: "var(--radius-xl)",
+      border: "1px solid var(--navy-panel-border)",
+      background: "var(--navy-panel-soft)",
+      padding: "1.25rem",
+      fontFamily: "var(--font-sans)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "relative",
+      width: SIZE,
+      height: SIZE,
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    viewBox: `0 0 ${SIZE} ${SIZE}`,
+    style: {
+      width: "100%",
+      height: "100%",
+      transform: "rotate(-90deg)",
+      overflow: "visible"
+    }
+  }, /*#__PURE__*/React.createElement("circle", {
+    cx: SIZE / 2,
+    cy: SIZE / 2,
+    r: R,
+    fill: "none",
+    stroke: "rgb(255 255 255 / 0.06)",
+    strokeWidth: STROKE
+  }), data.map((d, i) => {
+    const len = Math.max(0, d.percent / 100 * CIRC - 2);
+    const dashoffset = -(cumulative / 100 * CIRC);
+    cumulative += d.percent;
+    const isHover = hoverIdx === i;
+    const isDim = hoverIdx != null && !isHover;
+    return /*#__PURE__*/React.createElement("circle", {
+      key: i,
+      cx: SIZE / 2,
+      cy: SIZE / 2,
+      r: R,
+      fill: "none",
+      stroke: d.color,
+      strokeWidth: isHover ? STROKE + 5 : STROKE,
+      strokeDasharray: `${len} ${CIRC - len}`,
+      strokeDashoffset: dashoffset,
+      strokeLinecap: "round",
+      opacity: isDim ? 0.35 : 1,
+      onMouseEnter: () => setHoverIdx(i),
+      onMouseLeave: () => setHoverIdx(null),
+      style: {
+        cursor: "pointer",
+        transition: "stroke-width var(--duration-fast) var(--ease-out), opacity var(--duration-fast) var(--ease-out)"
+      }
+    });
+  })), top && /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "absolute",
+      inset: 0,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      textAlign: "center",
+      pointerEvents: "none"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: "var(--text-2xl)",
+      fontWeight: "var(--weight-bold)",
+      color: "white",
+      lineHeight: 1
+    }
+  }, top.percent, "%"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: "var(--text-xs)",
+      color: "rgb(255 255 255 / 0.5)",
+      marginTop: 2
+    }
+  }, top.label))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.5rem",
+      flex: 1,
+      minWidth: 140
+    }
+  }, data.map((d, i) => {
+    const isHover = hoverIdx === i;
+    const isDim = hoverIdx != null && !isHover;
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      onMouseEnter: () => setHoverIdx(i),
+      onMouseLeave: () => setHoverIdx(null),
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: "0.5rem",
+        cursor: "pointer",
+        borderRadius: "var(--radius-md)",
+        padding: "0.25rem 0.375rem",
+        marginInline: "-0.375rem",
+        background: isHover ? "rgb(255 255 255 / 0.08)" : "transparent",
+        opacity: isDim ? 0.5 : 1,
+        transition: "background var(--duration-fast) var(--ease-out), opacity var(--duration-fast) var(--ease-out)"
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 8,
+        height: 8,
+        borderRadius: "50%",
+        background: d.color,
+        flexShrink: 0
+      }
+    }), d.icon && /*#__PURE__*/React.createElement(__ds_scope.Icon, {
+      name: d.icon,
+      set: d.iconSet,
+      size: 14,
+      style: {
+        color: "rgb(255 255 255 / 0.7)"
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        flex: 1,
+        fontSize: "var(--text-sm)",
+        color: isHover ? "white" : "rgb(255 255 255 / 0.85)",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
+        fontWeight: isHover ? "var(--weight-semibold)" : "var(--weight-regular)"
+      }
+    }, d.label), /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: "var(--text-sm)",
+        color: isHover ? "white" : "rgb(255 255 255 / 0.6)",
+        fontVariantNumeric: "tabular-nums"
+      }
+    }, d.percent, "%"));
+  })));
+}
+Object.assign(__ds_scope, { DonutChart });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/DonutChart.jsx", error: String((e && e.message) || e) }); }
+
 // components/data/MetricCard.jsx
 try { (() => {
-const TONE = {
-  good: {
-    bg: "var(--tone-good-bg)",
-    fg: "var(--tone-good-fg)"
-  },
-  bad: {
-    bg: "var(--tone-bad-bg)",
-    fg: "var(--tone-bad-fg)"
-  },
-  neutral: {
-    bg: "var(--tone-neutral-bg)",
-    fg: "var(--tone-neutral-fg)"
-  }
+const TONE_TEXT = {
+  good: "var(--emerald-400)",
+  bad: "var(--rose-400)",
+  neutral: "var(--slate-300)"
 };
 
 /**
- * MetricCard — white stat tile (visitors / page views) used inside the
- * dark MiniDashboard panel on the About section.
+ * MetricCard — dark navy stat tile (visitors / page views) used inside the
+ * DashboardPanel on the About section. Sits on `--navy-panel-soft`, one
+ * step lighter than the panel it's inside so it still reads as a tile.
  */
 function MetricCard({
   label,
@@ -538,57 +699,49 @@ function MetricCard({
   deltaTone = "good",
   helpText
 }) {
-  const tone = TONE[deltaTone] || TONE.good;
+  const deltaColor = TONE_TEXT[deltaTone] || TONE_TEXT.good;
   return /*#__PURE__*/React.createElement("div", {
     style: {
       borderRadius: "var(--radius-xl)",
-      border: "1px solid var(--border-on-dark)",
-      background: "white",
-      boxShadow: "var(--shadow-sm)"
+      border: "1px solid var(--navy-panel-border)",
+      background: "var(--navy-panel-soft)",
+      flex: 1
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       flexDirection: "column",
-      gap: "0.25rem",
-      padding: "1rem",
+      gap: "0.5rem",
+      padding: "1.25rem",
       fontFamily: "var(--font-sans)"
     }
   }, /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: "var(--text-sm)",
       fontWeight: "var(--weight-medium)",
-      color: "var(--text-muted)"
+      color: "rgb(255 255 255 / 0.6)"
     }
-  }, label), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "flex-end",
-      justifyContent: "space-between"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
+  }, label), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: "var(--text-3xl)",
-      fontWeight: "var(--weight-semibold)",
+      fontWeight: "var(--weight-bold)",
       letterSpacing: "var(--tracking-tight)",
-      color: "var(--text-primary)"
+      color: "white"
     }
-  }, value), delta && /*#__PURE__*/React.createElement("span", {
+  }, value), (delta || helpText) && /*#__PURE__*/React.createElement("span", {
     style: {
-      marginLeft: "0.5rem",
-      borderRadius: "var(--radius-md)",
-      padding: "0.25rem 0.5rem",
-      fontSize: "var(--text-xs)",
-      fontWeight: "var(--weight-medium)",
-      background: tone.bg,
-      color: tone.fg
+      fontSize: "var(--text-sm)"
     }
-  }, delta)), helpText && /*#__PURE__*/React.createElement("span", {
+  }, delta && /*#__PURE__*/React.createElement("span", {
     style: {
-      fontSize: "var(--text-xs)",
-      color: "var(--text-faint)"
+      color: deltaColor,
+      fontWeight: "var(--weight-semibold)"
     }
-  }, helpText)));
+  }, delta), delta && helpText ? " " : null, helpText && /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: "rgb(255 255 255 / 0.45)"
+    }
+  }, helpText))));
 }
 Object.assign(__ds_scope, { MetricCard });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/MetricCard.jsx", error: String((e && e.message) || e) }); }
@@ -604,13 +757,20 @@ function StatBarRow({
   icon,
   iconSet = "lucide",
   label,
-  percent
+  percent,
+  color = "var(--accent)"
 }) {
+  const [hover, setHover] = React.useState(false);
   return /*#__PURE__*/React.createElement("div", {
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
     style: {
       borderRadius: "var(--radius-lg)",
-      background: "rgb(255 255 255 / 0.05)",
-      padding: "0.5rem 0.75rem"
+      border: `1px solid ${hover ? "rgb(255 255 255 / 0.18)" : "var(--navy-panel-border)"}`,
+      background: hover ? "rgb(255 255 255 / 0.06)" : "var(--navy-panel-soft)",
+      padding: "0.625rem 0.875rem",
+      transform: hover ? "translateX(3px)" : "translateX(0)",
+      transition: "background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out)"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -637,33 +797,274 @@ function StatBarRow({
       textOverflow: "ellipsis",
       whiteSpace: "nowrap",
       fontSize: "var(--text-sm)",
-      color: "rgb(255 255 255 / 0.9)"
+      color: hover ? "white" : "rgb(255 255 255 / 0.9)",
+      transition: "color var(--duration-fast) var(--ease-out)"
     }
   }, label)), /*#__PURE__*/React.createElement("div", {
     style: {
       height: 8,
       borderRadius: "var(--radius-full)",
-      background: "rgb(255 255 255 / 0.1)",
+      background: "rgb(255 255 255 / 0.08)",
       overflow: "hidden"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       height: 8,
       borderRadius: "var(--radius-full)",
-      background: "rgb(255 255 255 / 0.7)",
-      width: `${Math.min(100, Math.max(0, percent))}%`
+      background: color,
+      width: `${Math.min(100, Math.max(0, percent))}%`,
+      filter: hover ? "brightness(1.25)" : "brightness(1)",
+      boxShadow: hover ? `0 0 10px ${color}` : "none",
+      transition: "filter var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out)"
     }
   })), /*#__PURE__*/React.createElement("div", {
     style: {
       textAlign: "right",
       fontSize: "var(--text-sm)",
-      color: "rgb(255 255 255 / 0.8)",
-      fontVariantNumeric: "tabular-nums"
+      color: hover ? "white" : "rgb(255 255 255 / 0.8)",
+      fontVariantNumeric: "tabular-nums",
+      transition: "color var(--duration-fast) var(--ease-out)"
     }
   }, percent, "%")), /*#__PURE__*/React.createElement("style", null, `.ds-statbar-icon { color: rgb(255 255 255 / 0.8); }`));
 }
 Object.assign(__ds_scope, { StatBarRow });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/StatBarRow.jsx", error: String((e && e.message) || e) }); }
+
+// components/data/TrafficLineChart.jsx
+try { (() => {
+const {
+  useRef,
+  useState
+} = React;
+const W = 600;
+const H = 220;
+const PAD_L = 26;
+const PAD_T = 12;
+const PAD_B = 24;
+function smoothPath(points) {
+  if (!points.length) return "";
+  let d = `M ${points[0][0].toFixed(2)} ${points[0][1].toFixed(2)}`;
+  for (let i = 0; i < points.length - 1; i++) {
+    const [x0, y0] = points[i];
+    const [x1, y1] = points[i + 1];
+    const mx = (x0 + x1) / 2;
+    d += ` C ${mx.toFixed(2)} ${y0.toFixed(2)}, ${mx.toFixed(2)} ${y1.toFixed(2)}, ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+  }
+  return d;
+}
+
+/**
+ * TrafficLineChart — dual-line traffic trend chart (Visitors vs Page Views)
+ * with a soft gradient fill, gridlines, and a hover crosshair + tooltip.
+ * Used on the Visitors tab of `DashboardPanel`, replacing the old per-metric
+ * sparkline with one shared, larger chart.
+ */
+function TrafficLineChart({
+  caption = "Last 31 days",
+  dates = [],
+  series = []
+}) {
+  const [hoverIdx, setHoverIdx] = useState(null);
+  const wrapRef = useRef(null);
+  const n = dates.length;
+  const allValues = series.flatMap(s => s.values || []);
+  const rawMax = Math.max(1, ...allValues);
+  const niceMax = Math.max(10, Math.ceil(rawMax / 10) * 10);
+  const ticks = [0, 1, 2, 3, 4].map(i => Math.round(niceMax * i / 4));
+  const plotW = W - PAD_L;
+  const plotH = H - PAD_T - PAD_B;
+  const xFor = i => PAD_L + (n > 1 ? i / (n - 1) * plotW : plotW / 2);
+  const yFor = v => PAD_T + plotH - v / niceMax * plotH;
+  const seriesPoints = series.map(s => (s.values || []).map((v, i) => [xFor(i), yFor(v)]));
+  const labelStep = Math.max(1, Math.round(n / 6));
+  const xLabels = dates.map((d, i) => ({
+    d,
+    i
+  })).filter(({
+    i
+  }) => i % labelStep === 0 || i === n - 1);
+  function handleMove(e) {
+    if (!wrapRef.current || n === 0) return;
+    const rect = wrapRef.current.getBoundingClientRect();
+    const frac = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+    setHoverIdx(Math.round(frac * (n - 1)));
+  }
+  const hoverFrac = hoverIdx == null ? null : n > 1 ? hoverIdx / (n - 1) : 0.5;
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      borderRadius: "var(--radius-xl)",
+      border: "1px solid var(--navy-panel-border)",
+      background: "var(--navy-panel-soft)",
+      padding: "1rem 1.25rem",
+      fontFamily: "var(--font-sans)",
+      flex: 1,
+      minWidth: 0
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    ref: wrapRef,
+    onMouseMove: handleMove,
+    onMouseLeave: () => setHoverIdx(null),
+    style: {
+      position: "relative"
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    viewBox: `0 0 ${W} ${H}`,
+    style: {
+      width: "100%",
+      height: "auto",
+      display: "block",
+      overflow: "visible"
+    }
+  }, /*#__PURE__*/React.createElement("defs", null, series.map((s, si) => /*#__PURE__*/React.createElement("linearGradient", {
+    key: si,
+    id: `ds-lc-grad-${si}`,
+    x1: "0",
+    y1: "0",
+    x2: "0",
+    y2: "1"
+  }, /*#__PURE__*/React.createElement("stop", {
+    offset: "0%",
+    stopColor: s.color,
+    stopOpacity: "0.28"
+  }), /*#__PURE__*/React.createElement("stop", {
+    offset: "100%",
+    stopColor: s.color,
+    stopOpacity: "0"
+  })))), ticks.map((t, i) => /*#__PURE__*/React.createElement("g", {
+    key: i
+  }, /*#__PURE__*/React.createElement("line", {
+    x1: PAD_L,
+    y1: yFor(t),
+    x2: W,
+    y2: yFor(t),
+    stroke: "rgb(255 255 255 / 0.06)",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: PAD_L - 8,
+    y: yFor(t) + 3,
+    textAnchor: "end",
+    fontSize: "9",
+    fill: "rgb(255 255 255 / 0.4)"
+  }, t))), seriesPoints.map((pts, si) => {
+    if (!pts.length) return null;
+    const linePath = smoothPath(pts);
+    const base = (PAD_T + plotH).toFixed(2);
+    const areaPath = `${linePath} L ${pts[pts.length - 1][0].toFixed(2)} ${base} L ${pts[0][0].toFixed(2)} ${base} Z`;
+    return /*#__PURE__*/React.createElement("g", {
+      key: si
+    }, /*#__PURE__*/React.createElement("path", {
+      d: areaPath,
+      fill: `url(#ds-lc-grad-${si})`,
+      stroke: "none"
+    }), /*#__PURE__*/React.createElement("path", {
+      d: linePath,
+      fill: "none",
+      stroke: series[si].color,
+      strokeWidth: "2.5",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    }));
+  }), hoverIdx != null && /*#__PURE__*/React.createElement("line", {
+    x1: xFor(hoverIdx),
+    y1: PAD_T,
+    x2: xFor(hoverIdx),
+    y2: PAD_T + plotH,
+    stroke: "rgb(255 255 255 / 0.25)",
+    strokeWidth: "1"
+  }), hoverIdx != null && seriesPoints.map((pts, si) => pts[hoverIdx] && /*#__PURE__*/React.createElement("circle", {
+    key: si,
+    cx: pts[hoverIdx][0],
+    cy: pts[hoverIdx][1],
+    r: "4",
+    fill: series[si].color,
+    stroke: "var(--navy-panel-soft)",
+    strokeWidth: "2"
+  })), xLabels.map(({
+    d,
+    i
+  }) => /*#__PURE__*/React.createElement("text", {
+    key: i,
+    x: xFor(i),
+    y: H - 4,
+    textAnchor: "middle",
+    fontSize: "9",
+    fill: "rgb(255 255 255 / 0.4)"
+  }, d))), hoverIdx != null && /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "absolute",
+      top: 6,
+      left: `${Math.min(75, Math.max(0, hoverFrac * 100))}%`,
+      transform: hoverFrac > 0.7 ? "translateX(-100%)" : "translateX(8px)",
+      background: "rgb(6 12 22 / 0.95)",
+      border: "1px solid rgb(255 255 255 / 0.1)",
+      borderRadius: "var(--radius-md)",
+      padding: "0.5rem 0.625rem",
+      fontSize: "var(--text-xs)",
+      color: "white",
+      pointerEvents: "none",
+      whiteSpace: "nowrap",
+      boxShadow: "var(--shadow-card-lg)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      color: "rgb(255 255 255 / 0.5)",
+      marginBottom: 4
+    }
+  }, dates[hoverIdx]), series.map(s => /*#__PURE__*/React.createElement("div", {
+    key: s.label,
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 6
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 6,
+      height: 6,
+      borderRadius: "50%",
+      background: s.color,
+      display: "inline-block"
+    }
+  }), s.label, ": ", /*#__PURE__*/React.createElement("strong", null, s.values[hoverIdx]))))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      flexWrap: "wrap",
+      gap: "0.5rem",
+      paddingTop: "0.625rem"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: "1rem"
+    }
+  }, series.map(s => /*#__PURE__*/React.createElement("span", {
+    key: s.label,
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: "0.375rem",
+      fontSize: "var(--text-xs)",
+      color: "rgb(255 255 255 / 0.6)"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 7,
+      height: 7,
+      borderRadius: "50%",
+      background: s.color,
+      display: "inline-block"
+    }
+  }), s.label))), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: "var(--text-xs)",
+      color: "rgb(255 255 255 / 0.4)"
+    }
+  }, caption)));
+}
+Object.assign(__ds_scope, { TrafficLineChart });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/TrafficLineChart.jsx", error: String((e && e.message) || e) }); }
 
 // components/data/DashboardPanel.jsx
 try { (() => {
@@ -692,90 +1093,156 @@ const TABS = [{
   label: "Referrers",
   icon: "external-link"
 }];
+const DONUT_TABS = ["devices", "browsers"];
+const DONUT_PALETTE = ["var(--accent)", "var(--sky-500)", "var(--slate-400)", "var(--rose-400)"];
+const BAR_COLOR = {
+  countries: "var(--accent)",
+  referrers: "var(--sky-500)"
+};
 
 /**
- * DashboardPanel — dark glass panel with icon-only (label-on-hover) tabs.
- * A tiny self-service analytics widget shown on the About section as a
- * "proof of work" flourish, not a real product surface.
+ * DashboardPanel — premium-navy "Showcase Dashboard" widget on the About
+ * section. Full-text tabs (always visible, not icon-only) switch between a
+ * Visitors view (two metric tiles + a shared traffic line chart) and ranked
+ * breakdowns: Countries/Referrers as bar lists, Devices/Browsers as donuts.
  */
 function DashboardPanel({
-  title = "Showcase Dashboard",
+  title = "Dashboard Showcase",
+  subheader = "Live Traffic Showcase (Click to Explore)",
+  credit,
   visitors = [],
+  series,
   rows = {},
   topN = 6
 }) {
   const [tab, setTab] = useState("visitors");
-  const [hovered, setHovered] = useState(null);
   return /*#__PURE__*/React.createElement("div", {
     style: {
       borderRadius: "var(--radius-2xl)",
-      border: "1px solid var(--border-on-dark)",
-      background: "rgb(255 255 255 / 0.05)",
-      padding: "1.25rem",
+      border: "1px solid var(--navy-panel-border)",
+      background: "var(--navy-panel)",
+      padding: "1.5rem",
       fontFamily: "var(--font-sans)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "flex-start",
+      justifyContent: "space-between",
+      gap: "1rem",
+      marginBottom: "1.25rem"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      minWidth: 0
     }
   }, /*#__PURE__*/React.createElement("p", {
     style: {
-      margin: "0 0 0.75rem",
-      fontSize: "var(--text-sm)",
-      fontWeight: "var(--weight-medium)",
-      color: "rgb(255 255 255 / 0.8)"
+      margin: "0 0 0.375rem",
+      fontSize: "var(--text-xl)",
+      fontWeight: "var(--weight-bold)",
+      letterSpacing: "var(--tracking-tight)",
+      color: "white",
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis"
     }
   }, title), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
-      flexWrap: "wrap",
-      gap: "0.5rem",
-      marginBottom: "1rem"
+      alignItems: "center",
+      gap: "0.5rem"
     }
-  }, TABS.map((t, i) => {
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "ds-live-dot",
+    style: {
+      width: 7,
+      height: 7,
+      borderRadius: "50%",
+      background: "var(--accent)",
+      display: "inline-block",
+      boxShadow: "0 0 0 3px rgb(16 185 129 / 0.2)",
+      flexShrink: 0
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: "var(--text-sm)",
+      color: "rgb(255 255 255 / 0.55)",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap"
+    }
+  }, subheader))), credit && /*#__PURE__*/React.createElement("div", {
+    style: {
+      flexShrink: 0,
+      whiteSpace: "nowrap"
+    }
+  }, credit)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "1.5rem",
+      marginBottom: "1.25rem",
+      borderBottom: "1px solid var(--navy-panel-border)"
+    }
+  }, TABS.map(t => {
     const active = tab === t.id;
-    const showLabel = active || hovered === i;
     return /*#__PURE__*/React.createElement("button", {
       key: t.id,
       type: "button",
-      "aria-label": t.label,
       onClick: () => setTab(t.id),
-      onMouseEnter: () => setHovered(i),
-      onMouseLeave: () => setHovered(null),
       style: {
         display: "flex",
         alignItems: "center",
-        borderRadius: "var(--radius-xl)",
+        gap: "0.5rem",
         border: "none",
-        padding: "0.5rem",
+        borderBottom: active ? "2px solid var(--accent)" : "2px solid transparent",
+        background: "none",
+        padding: "0 0 0.75rem",
         cursor: "pointer",
-        background: active ? "rgb(255 255 255 / 0.15)" : "rgb(255 255 255 / 0.05)",
-        color: active ? "white" : "rgb(255 255 255 / 0.7)",
-        transition: "background var(--duration-base) var(--ease-out)"
+        fontSize: "var(--text-sm)",
+        fontWeight: active ? "var(--weight-semibold)" : "var(--weight-medium)",
+        color: active ? "white" : "rgb(255 255 255 / 0.45)",
+        transition: "color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out)"
       }
     }, /*#__PURE__*/React.createElement(__ds_scope.Icon, {
       name: t.icon,
       size: 16
-    }), /*#__PURE__*/React.createElement("span", {
-      style: {
-        whiteSpace: "nowrap",
-        fontSize: "var(--text-xs)",
-        marginLeft: showLabel ? 6 : 0,
-        maxWidth: showLabel ? 120 : 0,
-        overflow: "hidden",
-        transition: "all 150ms"
-      }
-    }, t.label));
+    }), t.label);
   })), tab === "visitors" && /*#__PURE__*/React.createElement("div", {
     style: {
-      borderRadius: "var(--radius-xl)",
-      background: "rgb(255 255 255 / 0.05)",
-      padding: "0.75rem",
       display: "flex",
       flexDirection: "column",
-      gap: "0.75rem"
+      gap: "1rem"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "1rem"
     }
   }, visitors.map((card, i) => /*#__PURE__*/React.createElement(__ds_scope.MetricCard, _extends({
     key: i
   }, card, {
     helpText: "Last 31 days"
-  })))), tab !== "visitors" && /*#__PURE__*/React.createElement("div", {
+  })))), series && /*#__PURE__*/React.createElement(__ds_scope.TrafficLineChart, {
+    dates: series.dates,
+    series: [{
+      label: "Visitors",
+      color: "var(--accent)",
+      values: series.visitors
+    }, {
+      label: "Page Views",
+      color: "var(--sky-500)",
+      values: series.pageViews
+    }]
+  })), tab !== "visitors" && DONUT_TABS.includes(tab) && /*#__PURE__*/React.createElement(__ds_scope.DonutChart, {
+    data: (rows[tab] || []).slice(0, topN).map((r, i) => ({
+      ...r,
+      color: DONUT_PALETTE[i % DONUT_PALETTE.length]
+    }))
+  }), tab !== "visitors" && !DONUT_TABS.includes(tab) && /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       flexDirection: "column",
@@ -786,15 +1253,19 @@ function DashboardPanel({
     icon: r.icon,
     iconSet: r.iconSet,
     label: r.label,
-    percent: r.percent
+    percent: r.percent,
+    color: BAR_COLOR[tab] || "var(--accent)"
   })), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: "var(--text-xs)",
-      color: "var(--slate-500)",
+      color: "rgb(255 255 255 / 0.4)",
       paddingLeft: "0.5rem",
       paddingTop: "0.25rem"
     }
-  }, "Last 31 days")));
+  }, "Last 31 days")), /*#__PURE__*/React.createElement("style", null, `
+        @keyframes ds-live-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+        .ds-live-dot { animation: ds-live-pulse 2s var(--ease-out) infinite; }
+      `));
 }
 Object.assign(__ds_scope, { DashboardPanel });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "components/data/DashboardPanel.jsx", error: String((e && e.message) || e) }); }
@@ -960,8 +1431,9 @@ function HomeScreen({
       margin: "0 auto",
       padding: "3rem 1.5rem",
       display: "grid",
-      gridTemplateColumns: "7fr 3fr",
-      gap: "2rem",
+      gridTemplateColumns: "6fr 5fr",
+      gap: "3rem",
+      alignItems: "center",
       boxSizing: "border-box"
     }
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", {
@@ -973,7 +1445,7 @@ function HomeScreen({
     }
   }, "About Me:"), /*#__PURE__*/React.createElement("p", {
     style: {
-      maxWidth: 640,
+      maxWidth: 720,
       fontSize: "var(--text-xl)",
       lineHeight: "var(--leading-relaxed)",
       color: "rgb(255 255 255 / 0.9)"
@@ -992,28 +1464,29 @@ function HomeScreen({
     }
   }, "digital innovation"), ".")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(DashboardPanel, {
     visitors: dashboard.visitors,
-    rows: dashboard.rows
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      gap: "0.5rem",
-      alignItems: "center",
-      paddingTop: "1rem",
-      paddingLeft: "0.5rem"
-    }
-  }, /*#__PURE__*/React.createElement("p", {
-    style: {
-      margin: 0,
-      fontSize: "var(--text-sm)",
-      color: "var(--text-faint)"
-    }
-  }, "Powered by Supabase"), /*#__PURE__*/React.createElement(SocialLinks, {
-    links: [{
-      icon: "supabase",
-      url: "https://supabase.com",
-      label: "Supabase"
-    }]
-  }))))), /*#__PURE__*/React.createElement("section", {
+    series: dashboard.series,
+    rows: dashboard.rows,
+    credit: /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: "0.5rem",
+        alignItems: "center"
+      }
+    }, /*#__PURE__*/React.createElement("p", {
+      style: {
+        margin: 0,
+        fontSize: "var(--text-xs)",
+        color: "rgb(255 255 255 / 0.4)"
+      }
+    }, "Powered by Supabase"), /*#__PURE__*/React.createElement(SocialLinks, {
+      links: [{
+        icon: "supabase",
+        url: "https://supabase.com",
+        label: "Supabase"
+      }],
+      gap: 8
+    }))
+  })))), /*#__PURE__*/React.createElement("section", {
     id: "work",
     style: {
       padding: "5rem 0"
@@ -2062,6 +2535,29 @@ window.ProjectScreen = ProjectScreen;
 try { (() => {
 // Sample data for the Home + Project screens — mirrors the shape/content of
 // the real app/page.tsx and app/project/page.tsx (kben19/Portfolio).
+
+// Deterministic pseudo-random 31-day traffic wave for the DashboardPanel's
+// Traffic Trends chart — sample data only (production pulls real Supabase numbers).
+function generateTrafficSeries(len, base, amp, seed) {
+  const out = [];
+  let s = seed;
+  for (let i = 0; i < len; i++) {
+    s = (s * 9301 + 49297) % 233280;
+    const rnd = s / 233280;
+    const wave = Math.sin(i / 3.2) * amp * 0.6 + Math.sin(i / 7) * amp * 0.4;
+    out.push(Math.max(1, Math.round(base + wave + (rnd - 0.5) * amp * 0.3)));
+  }
+  return out;
+}
+const TRAFFIC_DATES = Array.from({
+  length: 31
+}, (_, i) => {
+  const d = new Date(2025, 11, 1 + i);
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric"
+  });
+});
 window.PORTFOLIO_DATA = {
   heroTyping: ["Building one of biggest Indonesia e-commerce industry for over 7 years.\n\nSpecializing in scalable microservices serving millions of users."],
   socials: [{
@@ -2102,6 +2598,11 @@ window.PORTFOLIO_DATA = {
       delta: "+9%",
       deltaTone: "good"
     }],
+    series: {
+      dates: TRAFFIC_DATES,
+      visitors: generateTrafficSeries(31, 40, 20, 7),
+      pageViews: generateTrafficSeries(31, 95, 45, 13)
+    },
     rows: {
       countries: [{
         icon: null,
@@ -2238,9 +2739,13 @@ __ds_ns.TextType = __ds_scope.TextType;
 
 __ds_ns.DashboardPanel = __ds_scope.DashboardPanel;
 
+__ds_ns.DonutChart = __ds_scope.DonutChart;
+
 __ds_ns.MetricCard = __ds_scope.MetricCard;
 
 __ds_ns.StatBarRow = __ds_scope.StatBarRow;
+
+__ds_ns.TrafficLineChart = __ds_scope.TrafficLineChart;
 
 __ds_ns.Header = __ds_scope.Header;
 

@@ -5,4 +5,6 @@ export interface StatBarRowProps {
   label: string;
   /** 0-100 */
   percent: number;
+  /** Fill color for the progress track. Default `var(--accent)`. */
+  color?: string;
 }

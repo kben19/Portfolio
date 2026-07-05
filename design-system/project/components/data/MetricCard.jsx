@@ -1,32 +1,32 @@
 import React from "react";
 
-const TONE = {
-  good: { bg: "var(--tone-good-bg)", fg: "var(--tone-good-fg)" },
-  bad: { bg: "var(--tone-bad-bg)", fg: "var(--tone-bad-fg)" },
-  neutral: { bg: "var(--tone-neutral-bg)", fg: "var(--tone-neutral-fg)" },
+const TONE_TEXT = {
+  good: "var(--emerald-400)",
+  bad: "var(--rose-400)",
+  neutral: "var(--slate-300)",
 };
 
 /**
- * MetricCard — white stat tile (visitors / page views) used inside the
- * dark MiniDashboard panel on the About section.
+ * MetricCard — dark navy stat tile (visitors / page views) used inside the
+ * DashboardPanel on the About section. Sits on `--navy-panel-soft`, one
+ * step lighter than the panel it's inside so it still reads as a tile.
  */
 export function MetricCard({ label, value, delta, deltaTone = "good", helpText }) {
-  const tone = TONE[deltaTone] || TONE.good;
+  const deltaColor = TONE_TEXT[deltaTone] || TONE_TEXT.good;
   return (
-    <div style={{ borderRadius: "var(--radius-xl)", border: "1px solid var(--border-on-dark)", background: "white", boxShadow: "var(--shadow-sm)" }}>
-      <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem", padding: "1rem", fontFamily: "var(--font-sans)" }}>
-        <span style={{ fontSize: "var(--text-sm)", fontWeight: "var(--weight-medium)", color: "var(--text-muted)" }}>{label}</span>
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
-          <span style={{ fontSize: "var(--text-3xl)", fontWeight: "var(--weight-semibold)", letterSpacing: "var(--tracking-tight)", color: "var(--text-primary)" }}>
-            {value}
+    <div style={{ borderRadius: "var(--radius-xl)", border: "1px solid var(--navy-panel-border)", background: "var(--navy-panel-soft)", flex: 1 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", padding: "1.25rem", fontFamily: "var(--font-sans)" }}>
+        <span style={{ fontSize: "var(--text-sm)", fontWeight: "var(--weight-medium)", color: "rgb(255 255 255 / 0.6)" }}>{label}</span>
+        <span style={{ fontSize: "var(--text-3xl)", fontWeight: "var(--weight-bold)", letterSpacing: "var(--tracking-tight)", color: "white" }}>
+          {value}
+        </span>
+        {(delta || helpText) && (
+          <span style={{ fontSize: "var(--text-sm)" }}>
+            {delta && <span style={{ color: deltaColor, fontWeight: "var(--weight-semibold)" }}>{delta}</span>}
+            {delta && helpText ? " " : null}
+            {helpText && <span style={{ color: "rgb(255 255 255 / 0.45)" }}>{helpText}</span>}
           </span>
-          {delta && (
-            <span style={{ marginLeft: "0.5rem", borderRadius: "var(--radius-md)", padding: "0.25rem 0.5rem", fontSize: "var(--text-xs)", fontWeight: "var(--weight-medium)", background: tone.bg, color: tone.fg }}>
-              {delta}
-            </span>
-          )}
-        </div>
-        {helpText && <span style={{ fontSize: "var(--text-xs)", color: "var(--text-faint)" }}>{helpText}</span>}
+        )}
       </div>
     </div>
   );
