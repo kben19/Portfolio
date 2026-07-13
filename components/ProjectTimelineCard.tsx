@@ -1,5 +1,5 @@
 // components/ProjectTimelineCard.tsx
-import { CheckCircle, ExternalLink } from "lucide-react";
+import { CheckCircle, ExternalLink, ImageIcon } from "lucide-react";
 import ProjectImageGallery from "./ProjectImageGallery";
 
 export type Project = {
@@ -17,6 +17,9 @@ export type Project = {
     tech?: string[];
     links?: { label: string; href: string }[];
     images?: { src: string; alt: string; width: number; height: number }[];
+    // Reserves the two-column image slot with a "coming soon" placeholder
+    // when images aren't ready yet but the layout should already account for them.
+    imagePlaceholder?: boolean;
 };
 
 interface Props {
@@ -38,16 +41,18 @@ export default function ProjectTimelineCard({ project }: Props) {
         tech = [],
         images = [],
         links = [],
+        imagePlaceholder = false,
     } = project;
 
     const hasImages = images.length > 0;
+    const showImagePanel = hasImages || imagePlaceholder;
     const showMetrics = metrics.length > 0;
 
     return (
         <article className="rounded-2xl border border-slate-500/[0.15] bg-white p-7 px-8">
             <div
                 className={
-                    hasImages
+                    showImagePanel
                         ? "grid items-start gap-10 min-[860px]:grid-cols-[minmax(0,1.4fr)_minmax(240px,1fr)]"
                         : ""
                 }
@@ -152,7 +157,14 @@ export default function ProjectTimelineCard({ project }: Props) {
                 </div>
 
                 {/* Image panel — click any image to open it full-size */}
-                {hasImages && <ProjectImageGallery images={images} />}
+                {hasImages ? (
+                    <ProjectImageGallery images={images} />
+                ) : imagePlaceholder ? (
+                    <div className="flex min-h-[220px] flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 text-slate-400">
+                        <ImageIcon className="h-8 w-8" />
+                        <span className="text-sm font-medium">Image coming soon</span>
+                    </div>
+                ) : null}
             </div>
         </article>
     );

@@ -7,9 +7,36 @@ import { insertEvent } from "../../utils/lib/event";
 
 const projects: Project[] = [
     {
+        id: "2026-shop-audit-trail",
+        year: 2026,
+        month: "Q1",
+        title: "Audit Trail Data Infrastructure for Shop Products",
+        role: "Senior Software Engineer — Tokopedia Shop",
+        subtitle:
+            "Designed and built an end-to-end audit trail infrastructure after the Shop team took over the product listing flow, so every product event changes, additions, and mutations could be traced at the atomic event level for root-cause investigation. Sole author of the system design and documentation from ideation to realization, and owner of both backend development and QA for the service.",
+        metrics: [
+            { value: "2B+", label: "Audit Events Capacity" },
+            { value: "300M+", label: "Daily Trail Logs Processed" },
+            { value: "50%+", label: "MTTR Reduction" },
+        ],
+        bullets: [
+            "Logged every product event changes, additions, and mutations into an Elasticsearch index via a consumer message queue spanning multiple microservices across the product events flow.",
+            "Propagated a LogID through context headers across all upstream microservices so a single event transaction could be traced end-to-end without any missed events, and introduced multi-datacenter high availability for the Elasticsearch datastore in latest version for added resiliency.",
+            "Designed a data retention plan to sustainably manage the massive size volume of audit events ingested every day.",
+            "Addressed the observability gap introduced by that retention plan with a compacted persistent storage layer, letting the service analyze a persistence historical product logs even after raw events expired.",
+        ],
+        techGroups: [
+            { category: "Languages & Protocols", items: ["Go"] },
+            { category: "Database & Messaging", items: ["Elasticsearch", "Message Queue"] },
+        ],
+        images: [
+            { src: "/projects/audit_trail.png", alt: "Audit Trail Shop Product", width: 1024, height: 547 },
+        ],
+    },
+    {
         id: "2025-toko-migration",
         year: 2025,
-        month: "March",
+        month: "Q1",
         title: "Cloud Migration — Migration Tokopedia Digital Core Service",
         role: "Senior Software Engineer — Tokopedia Digital",
         subtitle:
@@ -40,7 +67,7 @@ const projects: Project[] = [
     {
         id: "2024-toko-sandbox",
         year: 2024,
-        month: "December",
+        month: "Q4",
         title: "Toko Sandbox — CI/CD‑Gated Test Environment (Shift‑Left)",
         role: "Senior Software Engineer — Tokopedia Travel",
         subtitle:
@@ -68,7 +95,7 @@ const projects: Project[] = [
     {
         id: "2019-sobat-dashboard",
         year: 2019,
-        month: "August",
+        month: "Q3",
         title: "Mitra App & Sobat Dashboard",
         role: "Software Engineer — Tokopedia Mitra",
         subtitle:
@@ -126,7 +153,7 @@ export default async function ProjectPage() {
                     <div className="mt-3 text-center">
                         <h1 className="text-4xl font-bold tracking-tight">Tokopedia Projects</h1>
                         <p className="mx-auto mt-2 max-w-xl text-gray-500">
-                            A focused timeline of major initiatives I led or contributed to between 2019 and 2025.
+                            A focused timeline of major initiatives I led or contributed to between 2019 and 2026.
                         </p>
                     </div>
                 </header>
